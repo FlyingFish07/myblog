@@ -55,17 +55,24 @@ class Post < ActiveRecord::Base
       include_tags = options[:include] == :tags
       order = 'published_at DESC'
       conditions = ['published_at < ?', Time.zone.now]
-      limit = options[:limit] ||= DEFAULT_LIMIT
+      # limit = options[:limit] ||= DEFAULT_LIMIT
+      limit = options[:limit] ||= 5
+      page = options[:page]
+      if options[:page].nil?
+        page = 1
+      end
 
       if tag
         result = Post.tagged_with(tag)
         result = result.where(conditions)
         result = result.includes(:tags) if include_tags
-        result.order(order).limit(limit)
+        # result.order(order).limit(limit)
+        result.order(order).paginate(:page => page, :per_page => limit)
       else
         result = where(conditions)
         result = result.includes(:tags) if include_tags
-        result.order(order).limit(limit)
+        # result.order(order).limit(limit)
+        result.order(order).paginate(:page => page, :per_page => limit)
       end
     end
 

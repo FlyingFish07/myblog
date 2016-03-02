@@ -24,7 +24,6 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new((session[:pending_comment] || comment_params || {}).
       reject { |key, value| !Comment.protected_attribute?(key) })
-
     @comment.post = @post
 
     if !@comment.requires_openid_authentication?
@@ -61,7 +60,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:author, :body)
+    params.require(:comment).permit(:author,:author_email,:author_url, :body)
   end
 
   protected

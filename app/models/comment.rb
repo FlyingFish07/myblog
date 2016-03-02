@@ -13,17 +13,31 @@ class Comment < ActiveRecord::Base
   validates             :author, :body, :post, :presence => true
   validate :open_id_error_should_be_blank
 
+  validates   :author_email, format:{
+                        with: /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
+                      }
+  validates   :author_url, format:{
+                        with: /[a-zA-z]+:\/\/[^\s]*/
+                      } , unless: "author_url.blank?"
+
   def open_id_error_should_be_blank
     errors.add(:base, openid_error) unless openid_error.blank?
   end
 
   def apply_filter
-    self.body_html = Lesstile.format_as_xhtml(self.body, :code_formatter => Lesstile::CodeRayFormatter)
+    #self.body_html = Lesstile.format_as_xhtml(self.body, :code_formatter => Lesstile::CodeRayFormatter)
+    self.body_html = Lesstile.format_as_xhtml(self.body, :code_formatter => lambda { |code, lang| 
+        logger.info "code:#{code},lang:#{lang}"
+        lang = :plaintext if lang.nil?
+        code = CGI::unescapeHTML(code)
+        Rouge.highlight(code,lang,'html')
+     })
   end
 
   def blank_openid_fields
-    self.author_url = ""
-    self.author_email = ""
+    logger.info "AAAAAAAA: #{self.author_url}:#{self.author_email}"
+    # self.author_url = "" if self.author_url.nil?
+    self.author_email = "" if author_email.nil?
   end
 
   def requires_openid_authentication?
@@ -64,7 +78,7 @@ class Comment < ActiveRecord::Base
 
   class << self
     def protected_attribute?(attribute)
-      [:author, :body].include?(attribute.to_sym)
+      [:author, :author_url,:author_email, :body].include?(attribute.to_sym)
     end
 
     def new_with_filter(params)

@@ -1,6 +1,7 @@
-source 'https://rubygems.org'
+#source 'https://rubygems.org'
+source 'https://ruby.taobao.org'
 
-gem 'rails', '~> 4.2.4'
+gem 'rails', '4.2.4'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -33,11 +34,13 @@ gem 'jquery-rails'
 # gem 'ruby-debug'
 
 # Bundle the extra gems:
-gem 'RedCloth', '~> 4.2.9', :require => 'redcloth'
+#gem 'RedCloth', '~> 4.2.9', :require => 'redcloth'
+gem 'kramdown'
+gem 'rouge','~>1.10.1'
 gem 'ruby-openid', :require => 'openid'
 gem 'rack-openid', :require => 'rack/openid'
 gem 'chronic'
-gem 'coderay', '~> 1.0.5'
+#gem 'coderay', '~> 1.0.5'
 gem 'lesstile', '~> 1.1.0'
 gem 'formtastic'
 gem 'will_paginate', '~> 3.0.2'
@@ -68,5 +71,7 @@ end
 #end
 
 group :development, :test do
+  # gem 'web-console', '3.0.0'
   gem 'rspec-rails'
+  gem 'byebug','8.2.2'
 end

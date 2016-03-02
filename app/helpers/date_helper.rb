@@ -8,6 +8,7 @@ module DateHelper
   end
 
   def format_comment_date(date)
-    format_post_date(date) + " at " + date.strftime("%l:%M %p")
+    l date, format: :long
+    # format_post_date(date) + " at " + date.strftime("%l:%M %p")
   end
 end

@@ -3,40 +3,47 @@
 <% end -%>
 
 <%= render @post %>
+<!-- <p class="text-muted">更多文章请查看<%= link_to '归档', archives_path %>.</p> -->
 
-<ol id="comments" class="commentlist">
+<div id="comments-start"><h3>留言：</h3></div>
+<div id="comments" class="commentlist">
   <% @post.approved_comments.each do |comment| -%>
-    <li<%=raw cycle(' class="alt"', '') %> id="comment-<%= comment.id %>">
+    <div  class="comment <%=raw cycle("even", "odd") %>" id="comment-<%= comment.id %>">
       <%= render comment %>
-    </li>
+    </div>
   <% end -%>
-</ol>
+</div>
 
-<div class="related">Looking for more? Head on over to the <%= link_to 'archives', archives_path %>.</div>
-
-<h2>Post a comment</h2>
 <% unless @comment.errors.empty? -%>
 <div class="errors">
   <h3>Comment not added!</h3>
   <ul>
-    <% @comment.errors.sort_by(&:first).each do |error| -%>
-      <li><%= format_comment_error(error) %></li>
-    <% end -%>
+    <% @comment.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
   </ul>
 </div>
 <% end -%>
 
 <div>
-  <%= form_for [@post, @comment], :url => post_comments_path(@post, @comment) do |form| -%>
-    <p>
-      <%= form.text_field 'author' %>
-      <%= form.label :author %>
-      <small>Name or <%= link_to 'OpenID', 'http://openidexplained.com/' %> (required)</small>
-    </p>
-    <p>
-      <%= form.text_area 'body' %><br/>
-      <small>(<%= link_to 'lesstile enabled', 'http://lesstile.rubyforge.org' %> - surround code blocks with ---)</small>
-    </p>
-    <p><%= form.submit 'Add Comment' %></p>
+  <%= form_for [@post, @comment], url: post_comments_path(@post, @comment) do |form| -%>
+    <div class="form-group">
+      <label for="author">昵称 <small>(必填)</small></label>
+      <%= form.text_field 'author',class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <label for="author_email">电子邮箱 <small>(我们会为您保密) (必填)</small></label>
+      <%= form.text_field 'author_email',class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <label for="author_url">网址</label>
+      <%= form.text_field 'author_url',class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <label for="body">随便说点什么:</label>
+      <%= form.text_area 'body',class: "form-control",rows: 8 %>
+      <p class="help-block">(<%= link_to 'lesstile enabled', 'http://lesstile.rubyforge.org' %> - surround code blocks with ---)</p>
+    </div>
+    <p><%= form.submit '提交评论', class: "btn btn-primary btn-lg" %></p>
   <% end -%>
 </div>

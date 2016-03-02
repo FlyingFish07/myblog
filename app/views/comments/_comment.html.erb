@@ -1,4 +1,15 @@
-  <cite><%= author_link(comment) %></cite> says:
-  <br/>
-  <small class="commentmetadata"><a href="#comment-<%= comment.id %>" title=""><%= format_comment_date(comment.created_at) %></a></small>
-  <p><%= raw(comment.body_html) %></p>
+<div class="inner">
+    <div class="comment-header">
+        <div class="asset-meta">
+            <p class="text-primary"><span class="byline"><span class="vcard author"><%= author_link(comment) %></span>说：</span></p>
+        </div>
+    </div>
+    <div id="comment-quote-<%= comment.id %>" class="comment-content">
+        <p><%= raw(comment.body_html) %></p>
+    </div>
+    <div class="comment-footer">
+        <div class="comment-footer-inner">
+            <p class="text-right text-muted"><abbr class="published"><small><%= format_comment_date(comment.created_at) %></abbr><!-- |<a href="#comment-<%= comment.id %>">#</a> --></small></p>
+        </div>
+    </div>
+</div>

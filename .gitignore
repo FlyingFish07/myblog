@@ -5,3 +5,5 @@ tmp
 config/database.yml
 .bundle
 *.log
+/vendor/bundle
+.byebug_history
