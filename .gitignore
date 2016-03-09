@@ -3,6 +3,8 @@ log
 tmp/**/*
 tmp
 config/database.yml
+config/enki.yml
+config/initializers/secret_token.rb
 .bundle
 *.log
 /vendor/bundle
