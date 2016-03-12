@@ -1,5 +1,4 @@
-#source 'https://rubygems.org'
-source 'https://ruby.taobao.org'
+source 'https://rubygems.org'
 
 gem 'rails', '4.2.4'
 
@@ -13,17 +12,17 @@ gem 'jquery-rails'
 # gem 'turbolinks'
 gem 'bootstrap-sass'
 
-platforms :ruby do
-#  gem 'pg'
-  gem 'sqlite3'
-end
+# platforms :ruby do
+# #  gem 'pg'
+#   gem 'sqlite3'
+# end
 
-platforms :jruby do
-  # The stable version has not yet supported Rails 4
-  gem 'activerecord-jdbcsqlite3-adapter', '1.3.0.beta2'
-  gem 'trinidad'
-  gem 'jruby-openssl'
-end
+# platforms :jruby do
+#   # The stable version has not yet supported Rails 4
+#   gem 'activerecord-jdbcsqlite3-adapter', '1.3.0.beta2'
+#   gem 'trinidad'
+#   gem 'jruby-openssl'
+# end
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -51,6 +50,10 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-openid'
 gem 'acts-as-taggable-on', '~> 3.5'
 
+group :production do
+  gem 'mysql2', '~>0.3.20'
+end
+
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
@@ -75,4 +78,5 @@ group :development, :test do
   # gem 'web-console', '3.0.0'
   gem 'rspec-rails'
   gem 'byebug','8.2.2'
+  gem 'sqlite3'
 end
