@@ -9,6 +9,9 @@ gem 'rails', '4.2.4'
 # Gems used only for assets and not required
 # in production environments by default.
 gem 'sass-rails'
+gem 'jquery-rails'
+# gem 'turbolinks'
+gem 'bootstrap-sass'
 
 platforms :ruby do
 #  gem 'pg'
@@ -21,8 +24,6 @@ platforms :jruby do
   gem 'trinidad'
   gem 'jruby-openssl'
 end
-
-gem 'jquery-rails'
 
 # Use unicorn as the web server
 # gem 'unicorn'
