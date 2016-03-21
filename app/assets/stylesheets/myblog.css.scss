@@ -129,4 +129,8 @@ $navbar-default-link-hover-bg:#999999;
  }
  .entry-body {
     text-align: justify;
+    word-wrap: break-word;
+ }
+ .long-word {
+    word-break: break-all;
  }
