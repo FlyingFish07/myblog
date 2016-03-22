@@ -1,9 +1,9 @@
 $font-size-base: 16px;
 $line-height-base: 1.75;
-$font-size-h1: 36px;
-$font-size-h2: 30px;
-$font-size-h3: 24px;
-$font-size-h4: 18px;
+$font-size-h1: 30px;
+$font-size-h2: 24px;
+$font-size-h3: 18px;
+$font-size-h4: 16px;
 $font-size-h5: 16px;
 $navbar-default-color: #222222;
 $navbar-default-link-color: $navbar-default-color;
@@ -82,10 +82,10 @@ $navbar-default-link-hover-bg:#999999;
 .blog-post {
   margin-bottom: 60px;
 }
-.blog-post-title {
-  margin-bottom: 5px;
-  // font-size: 40px;
-}
+// .blog-post-title {
+//   margin-bottom: 5px;
+//   // font-size: 40px;
+// }
 .blog-post-meta {
   margin-bottom: 20px;
   color: #999;
