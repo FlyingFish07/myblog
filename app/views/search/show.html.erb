@@ -2,7 +2,9 @@
 <h4 class="text-success">根据"<%= @keyword %>"查找，共找到<%= @search.total %>条记录.</h4>
 <% @all_hits.each do |hit| %>
     <h3><%= link_to(hit[:hl_title], post_path(hit[:result])) %></h3>
-    <p><%= hit[:hl_body] %>......</p>
+    <div class="entry-body">
+        <p><%= hit[:hl_body] %>......</p>
+    </div>
 <% end %>
 <div class="center-block">
     <%= will_paginate @search.hits, :renderer => MyBootstrapPagination::Rails %>
