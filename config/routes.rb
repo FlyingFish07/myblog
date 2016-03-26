@@ -1,4 +1,6 @@
 Enki::Application.routes.draw do
+  get 'search'  => 'search#show'
+
   namespace :admin do
     resource :session
 

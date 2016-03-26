@@ -112,7 +112,10 @@ $navbar-default-link-hover-bg:#999999;
  */
 /* 为了解决bootstrap在ie下字体不好看问题 */
 body {
-    font-family: "Helvetica Neue",Helvetica,Microsoft Yahei,Hiragino Sans GB,WenQuanYi Micro Hei,sans-serif;
+  font-family: "Helvetica Neue",Helvetica,Microsoft Yahei,Hiragino Sans GB,WenQuanYi Micro Hei,sans-serif;
+}
+#main {
+  padding-top: 70px;     
 }
 
  #comments-start {
@@ -133,12 +136,18 @@ body {
   margin-left: 20px;
  }
  .entry-body {
-    text-align: justify;
-    word-wrap: break-word;
+  text-align: justify;
+  word-wrap: break-word;
  }
  .long-word {
-    word-break: break-all;
+  word-break: break-all;
  }
  #site-stat {
   display: none;
+ }
+ #search-bar {
+  margin-top: 4px;
+ }
+ .search-highlight {
+  color: red;
  }

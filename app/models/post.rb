@@ -11,8 +11,12 @@ class Post < ActiveRecord::Base
   before_save             :apply_filter
 
   validates               :title, :slug, :body, :presence => true
-
   validate                :validate_published_at_natural
+
+  searchable do
+    text :title, :stored => true
+    text :body, :stored => true
+  end
 
   def validate_published_at_natural
     if published_at_natural.present? && !published?

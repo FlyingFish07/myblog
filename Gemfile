@@ -11,6 +11,7 @@ gem 'sass-rails'
 gem 'jquery-rails'
 # gem 'turbolinks'
 gem 'bootstrap-sass'
+gem 'sunspot_rails'
 
 # platforms :ruby do
 # #  gem 'pg'

@@ -19,7 +19,7 @@
 <body>
 
   <header>
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-default navbar-fixed-top">
        <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -31,17 +31,26 @@
           </button>
           <a class="navbar-brand" href="<%= root_url %>"><%= enki_config[:title] %></a>
         </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li><a href="/archives">归档</a></li>
             <li><a href="/pages/about">关于本站</a></li>
           </ul>
+          <div id="search-bar">
+            <form class="navbar-form navbar-right" role="search" action="/search">
+              <div class="input-group">
+                <input type="text" class="form-control input-sm" placeholder="Search for..." name="q">
+                <span class="input-group-btn">
+                  <button class="btn btn-default btn-sm" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                </span>
+              </div><!-- /input-group -->
+            </form>
+          </div>
         </div>
       </nav>
   </header>
-  <div class="container">
+  <div class="container" id="main">
     <!-- <div class="blog-header">
       <h1 class="blog-title" id="page_heading"><a href="<%= root_url %>"><%= enki_config[:chinese_title] %></a></h1>
       <p class="lead blog-description"><%= enki_config[:description] %></p> 
