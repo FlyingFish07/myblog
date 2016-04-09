@@ -90,9 +90,9 @@ class Post < ActiveRecord::Base
           result = result.includes(:tags) if options[:include].include?(:tags)
         end
 
-        post = result.detect do |post|
+        post = result.detect do |one_post|
           [:year, :month, :day].all? {|time|
-            post.published_at.send(time) == day.send(time)
+            one_post.published_at.send(time) == day.send(time)
           }
         end
       rescue ArgumentError # Invalid time
@@ -121,7 +121,8 @@ class Post < ActiveRecord::Base
   end
 
   def apply_filter
-    self.body_html = EnkiFormatter.format_as_xhtml(self.body)
+    # id 生成方法中采用slug名称，以免多文档时重复
+    self.body_html = EnkiFormatter.format_as_xhtml(self.body, {:auto_id_prefix => "#{self.slug}-"})
   end
 
   def set_dates
