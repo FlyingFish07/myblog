@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151220095617) do
+ActiveRecord::Schema.define(version: 20160416132612) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "post_id",      limit: 4,     null: false
@@ -66,6 +66,25 @@ ActiveRecord::Schema.define(version: 20151220095617) do
 
   add_index "posts", ["published_at"], name: "index_posts_on_published_at", using: :btree
   add_index "posts", ["slug"], name: "posts_slug_unique_idx", using: :btree
+
+  create_table "pubfiles", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "pfile",       limit: 255
+    t.string   "description", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "pubfiles", ["name"], name: "index_pubfiles_on_name", unique: true, using: :btree
+
+  create_table "pubimages", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "pimage",     limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "pubimages", ["name"], name: "index_pubimages_on_name", unique: true, using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", limit: 255,   null: false
