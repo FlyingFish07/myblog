@@ -1,0 +1,10 @@
+<tr id="pubimage-<%= pubimage.id %>" class="<%= cycle('', 'alt') %>">
+  <td class='created_at'><%= format_create_date(pubimage.created_at) %></td>
+  <td><%= link_to(pubimage.name, download_admin_pubimage_path(pubimage))%></td>
+  <td><%= link_to(pubimage.pimage.url, pubimage.pimage.url)%></td>
+  <td>
+    <%= form_for(pubimage, :as => :pubimage, :url => admin_pubimage_path(pubimage), :html => {:class => 'delete-item', :method => :delete}) do |form| -%>
+      <%= image_submit_tag("silk/delete.png", :alt => "Delete File") %>
+    <% end -%>
+  </td>
+</tr>

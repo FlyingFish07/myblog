@@ -12,6 +12,8 @@ gem 'jquery-rails'
 # gem 'turbolinks'
 gem 'bootstrap-sass'
 gem 'sunspot_rails'
+gem 'carrierwave'
+gem 'stringex'
 
 # platforms :ruby do
 # #  gem 'pg'

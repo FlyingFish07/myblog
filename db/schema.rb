@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151220095617) do
+ActiveRecord::Schema.define(version: 20160416132612) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "post_id",      null: false
@@ -67,6 +67,25 @@ ActiveRecord::Schema.define(version: 20151220095617) do
   add_index "posts", ["published_at"], name: "index_posts_on_published_at"
   add_index "posts", ["slug"], name: "posts_slug_unique_idx"
 
+  create_table "pubfiles", force: :cascade do |t|
+    t.string   "name"
+    t.string   "pfile"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "pubfiles", ["name"], name: "index_pubfiles_on_name", unique: true
+
+  create_table "pubimages", force: :cascade do |t|
+    t.string   "name"
+    t.string   "pimage"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "pubimages", ["name"], name: "index_pubimages_on_name", unique: true
+
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false
     t.text     "data"
@@ -84,7 +103,7 @@ ActiveRecord::Schema.define(version: 20151220095617) do
     t.integer  "tagger_id"
     t.string   "tagger_type"
     t.string   "taggable_type",             null: false
-    t.string   "context",       limit: 128
+    t.string   "context",       limit: 128, null: false
   end
 
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true

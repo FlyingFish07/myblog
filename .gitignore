@@ -5,6 +5,8 @@ tmp
 config/database.yml
 config/enki.yml
 config/sunspot.yml
+public/uploads/**/*
+public/uploads
 .bundle
 *.log
 /vendor/bundle

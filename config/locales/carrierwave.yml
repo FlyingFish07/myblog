@@ -1,0 +1,9 @@
+---
+zh-CN:
+  errors:
+    messages:
+      carrierwave_processing_error: "不能重置图片大小."
+      carrierwave_integrity_error: "不是一个图片."
+      carrierwave_download_error: "不能下载图片."
+      extension_white_list_error: "你不允许上传类型为 %{extension} 的文件, 允许上传的类型为: %{allowed_types}"
+      extension_black_list_error: "你不允许上传类型为 %{extension} 的文件, 禁止上传的类型为: %{prohibited_types}"

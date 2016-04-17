@@ -1,0 +1,37 @@
+<h1>公共文件库</h1>
+
+<%= semantic_form_for([:admin, @pubfile]) do |form| -%>
+  <%= render :partial => 'form', :locals => {:form => form} %>
+  <%= form.actions do -%>
+    <%= form.action :submit, :as => :button -%>
+  <% end -%>
+<% end -%>
+
+<table id='pubfiles'>
+  <thead>
+    <tr>
+      <th>上传时间</th>
+      <th>文件名 (点击链接下载)</th>
+      <th>文件描述</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if @pubfiles.empty? -%>
+      <tr><td colspan="5">当前没有任何文件.</td></tr>
+    <% else -%>
+      <%= render :partial => 'pubfile', :collection => @pubfiles %>
+    <% end -%>
+  </tbody>
+
+  <tfoot>
+    <% if @pubfiles.total_pages > 1 -%>
+      <tr class="pagination">
+        <td colspan='5'>
+          <%= will_paginate(@pubfiles, :previous_label => '&lt;&lt; Newer', :next_label => 'Older &gt;&gt;') %>
+        </td>
+      </tr>
+    <% end -%>
+  </tfoot>
+</table>

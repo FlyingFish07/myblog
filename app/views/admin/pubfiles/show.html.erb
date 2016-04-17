@@ -1,0 +1,12 @@
+<h1>修改文件信息 </h1>
+
+<%= semantic_form_for([:admin, @pubfile]) do |form| -%>
+  <%= form.inputs do -%>
+    <%= form.input :name, :input_html => { :disabled => true } %>
+    <%= form.input :pfile, :as => :file %>
+    <%= form.input :description , :required => false%>
+  <% end %>
+  <%= form.actions do -%>
+    <%= form.action :submit, :as => :button %>
+  <% end -%>
+<% end -%>

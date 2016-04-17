@@ -307,3 +307,12 @@ table img {
 #content {
   padding-bottom: 2em;
 }
+/** added by zyh */
+#new_pubfile, #new_pubimage{
+  margin-bottom: 30px;
+}
+.nav-a {
+  color: #eeeeee;
+  text-decoration: none;
+  font-weight: bold;
+}

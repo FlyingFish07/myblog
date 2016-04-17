@@ -12,4 +12,8 @@ module DateHelper
     l date, format: :long
     # format_post_date(date) + " at " + date.strftime("%l:%M %p")
   end
+  def format_create_date(date)
+    l date, format: :long
+    # format_post_date(date) + " at " + date.strftime("%l:%M %p")
+  end
 end

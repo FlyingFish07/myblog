@@ -23,7 +23,7 @@
     <% if @posts.total_pages > 1 -%>
       <tr class="pagination">
         <td colspan="5">
-          <%= will_paginate(@posts, :previous_label => '« Newer', :next_label => 'Older »') %>
+          <%= will_paginate(@posts, :previous_label => '&lt;&lt; Newer', :next_label => 'Older &gt;&gt;') %>
         </td>
       </tr>
     <% end -%>

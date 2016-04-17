@@ -11,6 +11,13 @@ Enki::Application.routes.draw do
     resources :undo_items do
       post 'undo', :on => :member
     end
+    # add upload file
+    resources :pubfiles do
+      get 'download', :on => :member    
+    end
+    resources :pubimages do
+      get 'download', :on => :member  
+    end
 
     get 'health(/:action)' => 'health', :action => 'index', :as => :health
     post 'health/generate_exception' => 'health#generate_exception'
