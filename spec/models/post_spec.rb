@@ -46,12 +46,11 @@ describe Post, '#find_all_grouped_by_month' do
     FactoryGirl.create(:post, :published_at_natural => 'last month')
     FactoryGirl.create(:post, :published_at_natural => 'now')
     FactoryGirl.create(:post, :published_at_natural => 'now')
-    date_time = DateTime.new
+    date_time = DateTime.now
     this_month = date_time.month
     previous_month = (date_time << 1).strftime('%-m').to_i
-
     result = Post.find_all_grouped_by_month
-
+    
     expect(result[0].date.month).to eq this_month
     expect(result[1].date.month).to eq previous_month
     expect(result[0].posts.size).to be 2
@@ -274,7 +273,7 @@ describe Post, '.build_for_preview' do
   end
 
   it 'applies filter to body' do
-    expect(@post.body_html).to eq('<p>body</p>')
+    expect(@post.body_html).to eq("<p>body</p>\n")
   end
 
   it 'generates tags from tag_list' do

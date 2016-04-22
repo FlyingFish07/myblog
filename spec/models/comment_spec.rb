@@ -5,6 +5,7 @@ describe Comment do
   def valid_comment_attributes(extra = {})
     {
       :author => 'Don Alias',
+      :author_email => 'don@example.com',
       :body   => 'This is a comment',
       :post   => Post.new
     }.merge(extra)
@@ -34,6 +35,21 @@ describe Comment do
 
   it "is invalid with no author" do
     set_comment_attributes(@comment, :author => '')
+    expect(@comment).not_to be_valid
+    expect(@comment.errors).not_to be_empty
+  end
+  it "is invalid with no author_email" do
+    set_comment_attributes(@comment, :author_email => '')
+    expect(@comment).not_to be_valid
+    expect(@comment.errors).not_to be_empty
+  end
+  it "is invalid with author_email format error" do
+    set_comment_attributes(@comment, :author_email => 'zzsd')
+    expect(@comment).not_to be_valid
+    expect(@comment.errors).not_to be_empty
+  end
+  it "is invalid with author_url format error" do
+    set_comment_attributes(@comment, :author_email => 'zzsd')
     expect(@comment).not_to be_valid
     expect(@comment.errors).not_to be_empty
   end
@@ -115,7 +131,7 @@ describe Comment, '#blank_openid_fields_if_unused' do
   end
 
   it('blanks out author_url')              { expect(@comment.author_url).to eq('') }
-  it('blanks out author_email')            { expect(@comment.author_email).to eq('') }
+  # it('blanks out author_email')            { expect(@comment.author_email).to eq('') }
 end
 
 describe Comment, '.find_recent' do

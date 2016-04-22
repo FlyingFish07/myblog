@@ -66,6 +66,6 @@ describe Page, '.build_for_preview' do
   end
 
   it 'applies filter to body' do
-    expect(@page.body_html).to eq('<p>body</p>')
+    expect(@page.body_html).to eq("<p>body</p>\n")
   end
 end

@@ -13,10 +13,10 @@ class Comment < ActiveRecord::Base
   validates             :author, :body, :post, :presence => true
   validate :open_id_error_should_be_blank
 
-  validates   :author_email, format:{
+  validates   :author_email, format: {
                         with: /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
                       }
-  validates   :author_url, format:{
+  validates   :author_url, format: {
                         with: /[a-zA-z]+:\/\/[^\s]*/
                       } , unless: "author_url.blank?"
 
@@ -35,9 +35,9 @@ class Comment < ActiveRecord::Base
   end
 
   def blank_openid_fields
-    logger.info "AAAAAAAA: #{self.author_url}:#{self.author_email}"
-    # self.author_url = "" if self.author_url.nil?
-    self.author_email = "" if author_email.nil?
+    self.author_url = "" if self.author_url.nil?
+    # TODO support openid
+    # self.author_email = "" if self.author_email.nil?
   end
 
   def requires_openid_authentication?

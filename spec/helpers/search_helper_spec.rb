@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 # Specs in this file have access to a helper object that includes
 # the SearchHelper. For example:
 #
@@ -10,6 +8,6 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe SearchHelper, type: :helper do
+describe SearchHelper do
   pending "add some examples to (or delete) #{__FILE__}"
 end

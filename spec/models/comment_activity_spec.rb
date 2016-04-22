@@ -5,7 +5,7 @@ describe CommentActivity, '#comments' do
   def valid_comment_attributes(extra = {})
     {
       :author       => 'Don Alias',
-      :author_url   => "me",
+      :author_url   => "http://www.donalias.com",
       :author_email => "me@fake.com",
       :body         => 'This is a comment',
       :post         => Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")

@@ -1,5 +1,5 @@
-require 'rails_helper'
+require File.dirname(__FILE__) + '/../spec_helper'
 
-RSpec.describe Pubfile, type: :model do
+describe Pubfile do
   pending "add some examples to (or delete) #{__FILE__}"
 end

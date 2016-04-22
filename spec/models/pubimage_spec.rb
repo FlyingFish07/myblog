@@ -1,5 +1,5 @@
-require 'rails_helper'
+require File.dirname(__FILE__) + '/../spec_helper'
 
-RSpec.describe Pubimage, type: :model do
+describe Pubimage do
   pending "add some examples to (or delete) #{__FILE__}"
 end

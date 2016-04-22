@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe SearchController, type: :controller do
+describe SearchController do
 
   describe "GET #show" do
     it "returns http success" do

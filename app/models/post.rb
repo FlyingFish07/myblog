@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-  DEFAULT_LIMIT = 15
+  DEFAULT_LIMIT = 5
 
   acts_as_taggable
 
@@ -59,8 +59,7 @@ class Post < ActiveRecord::Base
       include_tags = options[:include] == :tags
       order = 'published_at DESC'
       conditions = ['published_at < ?', Time.zone.now]
-      # limit = options[:limit] ||= DEFAULT_LIMIT
-      limit = options[:limit] ||= 5
+      limit = options[:limit] ||= DEFAULT_LIMIT
       page = options[:page]
       if options[:page].nil?
         page = 1
