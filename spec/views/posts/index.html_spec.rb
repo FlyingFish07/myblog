@@ -17,8 +17,10 @@ describe "/posts/index.html" do
       :approved_comments => [mock_model(Comment)],
       :tags              => [mock_tag]
     )
+    mock_posts = [mock_post, mock_post]
+    allow(mock_posts).to receive(:total_pages).and_return(1)
 
-    assign :posts, [mock_post, mock_post]
+    assign :posts, mock_posts
   end
 
   after(:each) do

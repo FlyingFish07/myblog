@@ -13,7 +13,7 @@ class Comment < ActiveRecord::Base
   validates             :author, :body, :post, :presence => true
   validate :open_id_error_should_be_blank
 
-  validates   :author_email, format: {
+  validates   :author_email, format:{
                         with: /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
                       }
   validates   :author_url, format: {

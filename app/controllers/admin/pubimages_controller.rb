@@ -6,14 +6,6 @@ class Admin::PubimagesController < Admin::BaseController
     @pubimages = Pubimage.paginate(:page => params[:page]).order("created_at DESC")
   end
 
-  # def show
-  #   respond_to do |format|
-  #     format.html {
-  #       render :partial => 'pubimage', :locals => {:pubimage => @pubimage} if request.xhr?
-  #     }
-  #   end
-  # end
-
   def create
     @pubimage = Pubimage.new(pubimage_params)
     @pubimages = Pubimage.paginate(:page => params[:page]).order("created_at DESC")
@@ -31,15 +23,6 @@ class Admin::PubimagesController < Admin::BaseController
     end
   end
   
-  # def update
-  #   if @pubimage.update_attributes(pubimage_params)
-  #     flash[:notice] = " This file has updated."
-  #     redirect_to :action => 'index'
-  #   else
-  #     render :action => 'show'
-  #   end
-  # end
-
   def destroy
     @pubimage.destroy
     @pubimages = Pubimage.paginate(:page => params[:page]).order("created_at DESC")

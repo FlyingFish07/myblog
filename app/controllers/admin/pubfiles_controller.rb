@@ -36,7 +36,9 @@ class Admin::PubfilesController < Admin::BaseController
       flash[:notice] = " This file has updated."
       redirect_to :action => 'index'
     else
-      render :action => 'show'
+      respond_to do |format|
+        format.html { render :action => 'show', :status => :unprocessable_entity }
+      end
     end
   end
 

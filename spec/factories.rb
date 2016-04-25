@@ -25,4 +25,14 @@ FactoryGirl.define do
     slug  'my-manually-entered-slug'
     body  'hello this is my page'
   end
+
+  factory :pubfile do
+    pfile { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'support', 'images', 'sunshine.jpg')) }
+    description "it is very beautiful"
+  end
+
+  factory :pubimage do
+    pimage { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'support', 'images', 'sunshine.jpg')) }
+  end
+
 end

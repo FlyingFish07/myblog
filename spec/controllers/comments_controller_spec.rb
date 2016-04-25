@@ -70,8 +70,8 @@ describe CommentsController, 'handling commenting' do
         :body   => 'This is a comment',
 
         # Attributes you are not allowed to set
-        :author_url              => 'http://www.enkiblog.com',
-        :author_email            => 'donalias@enkiblog.com',
+        # :author_url              => 'http://www.enkiblog.com',
+        # :author_email            => 'donalias@enkiblog.com',
         :created_at              => @created_at = 1.year.ago,
         :updated_at              => @updated_at = 1.year.ago
       }
@@ -86,13 +86,14 @@ describe CommentsController, 'handling commenting' do
       expect(assigns(:comment).body).to eq('This is a comment')
     end
 
-    it "forbids setting of author_url" do
-      expect(assigns(:comment).author_url).to be_blank
-    end
+    # allowed to input url and email  by zyh
+    # it "forbids setting of author_url" do
+    #   expect(assigns(:comment).author_url).to be_blank
+    # end
 
-    it "forbids setting of author_email" do
-      expect(assigns(:comment).author_email).to be_blank
-    end
+    # it "forbids setting of author_email" do
+    #   expect(assigns(:comment).author_email).to be_blank
+    # end
 
     it "forbids setting of created_at" do
       expect(assigns(:comment).created_at).not_to eq(@created_at)
