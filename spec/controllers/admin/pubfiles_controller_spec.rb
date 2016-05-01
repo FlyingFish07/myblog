@@ -146,7 +146,7 @@ describe Admin::PubfilesController do
         assigns[:pubfile].name = "sky.jpg"
       }
       session[:logged_in] = true
-      get :download, :id => 1
+      get :download, :id => pubfile1.id
     end
   end
 end

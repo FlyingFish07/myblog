@@ -55,7 +55,7 @@ describe Admin::PubimagesController do
         assigns[:pubimage].name = "sky.jpg"
       }
       session[:logged_in] = true
-      get :download, :id => 1
+      get :download, :id => pubimage1.id
     end
   end
 
