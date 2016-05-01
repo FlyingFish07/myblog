@@ -53,9 +53,10 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-openid'
 gem 'acts-as-taggable-on', '~> 3.5'
 
-group :production do
-  gem 'mysql2', '~>0.3.20'
-end
+# Comment this line if you donot use mysql
+gem 'mysql2', '~>0.3.20'
+#Uncomment if you want to use sqlite3
+# gem 'sqlite3'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
@@ -81,5 +82,4 @@ group :development, :test do
   # gem 'web-console', '3.0.0'
   gem 'rspec-rails'
   gem 'byebug','8.2.2'
-  gem 'sqlite3'
 end
