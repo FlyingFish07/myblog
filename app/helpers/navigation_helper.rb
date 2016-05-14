@@ -8,23 +8,31 @@ module NavigationHelper
 
   def category_links_for_navigation
     link = Struct.new(:name, :url)
-    get_tags_for_published_posts.collect { |tag| link.new(tag.name, posts_path(:tag => tag.name)) }
+    get_categories_for_published_posts.collect { |category| link.new(category[:name], posts_path(:category => category[:name])) }
+    # get_tags_for_published_posts.collect { |tag| link.new(tag.name, posts_path(:tag => tag.name)) }
   end
 
   private
 
-    def get_tags_for_published_posts
-      published_posts = Post.where.not(:published_at => nil)
-      published_tag_names = published_posts.collect{ |post|
-        unless post.cached_tag_list.nil?
-          post.cached_tag_list.split(',')
-        end
-      }.flatten.uniq
-      published_tag_names.each do |tag|
-        unless tag.nil?
-          tag.strip!
-        end
-      end
-      ActsAsTaggableOn::Tag.where(:name => published_tag_names).sort_by { |tag| tag.taggings.size }.reverse
+    def get_categories_for_published_posts
+      published_tags = Post.where.not(:published_at => nil).tag_counts_on(:categories)
+      published_tags.collect { |tag|
+        {name: tag.name, count: tag.count}
+      }
     end
+
+    # def get_tags_for_published_posts
+    #   published_posts = Post.where.not(:published_at => nil)
+    #   published_tag_names = published_posts.collect{ |post|
+    #     unless post.cached_tag_list.nil?
+    #       post.cached_tag_list.split(',')
+    #     end
+    #   }.flatten.uniq
+    #   published_tag_names.each do |tag|
+    #     unless tag.nil?
+    #       tag.strip!
+    #     end
+    #   end
+    #   ActsAsTaggableOn::Tag.where(:name => published_tag_names).sort_by { |tag| tag.taggings.size }.reverse
+    # end
 end

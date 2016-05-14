@@ -8,7 +8,7 @@ describe CommentActivity, '#comments' do
       :author_url   => "http://www.donalias.com",
       :author_email => "me@fake.com",
       :body         => 'This is a comment',
-      :post         => Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
+      :post         => Post.create!(:title => 'My Post', :body => "body", :category_list => "ruby")
     }.merge(extra)
   end
 

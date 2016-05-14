@@ -1,8 +1,15 @@
 class PostsController < ApplicationController
   def index
     @tag = params[:tag]
+    @category = params[:category]
     page = params[:page]
-    @posts = Post.find_recent(:tag => @tag, :page => page, :include => :tags)
+    if not @tag.nil?
+      @posts = Post.find_recent(:tag => @tag, :page => page, :include => :tags)
+    elsif not @category.nil?
+      @posts = Post.find_recent(:category => @category, :page => page, :include => :categories)
+    else
+      @posts = Post.find_recent(:page => page)
+    end
 
     raise(ActiveRecord::RecordNotFound) if @tag && @posts.empty?
 

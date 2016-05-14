@@ -20,27 +20,27 @@ describe NavigationHelper do
     it 'should return the expected links, ignoring tags only associated with unpublished posts' do
       published_post1 = Post.create!(:title => 'Published post',
                                      :body => 'This is the post body.',
-                                     :tag_list => 'red, green, blue',
+                                     :category_list => 'red, green, blue',
                                      :published_at_natural => 'now')
 
       published_post2 = Post.create!(:title => 'Published post',
                                      :body => 'This is the post body.',
-                                     :tag_list => 'red, green',
+                                     :category_list => 'red, green',
                                      :published_at_natural => 'now')
 
       published_post3 = Post.create!(:title => 'Published post',
                                      :body => 'This is the post body.',
-                                     :tag_list => 'red',
+                                     :category_list => 'red',
                                      :published_at_natural => 'now')
 
       published_post4 = Post.create!(:title => 'Published post',
                                      :body => 'This is the post body.',
-                                     :tag_list => ' tag with spaces, another tag with spaces ',
+                                     :category_list => ' tag with spaces, another tag with spaces ',
                                      :published_at_natural => 'now')
 
       unpublished_post = Post.create!(:title => 'Unpublished post',
                                       :body => 'This is the post body.',
-                                      :tag_list => 'square, triangle, oblong',
+                                      :category_list => 'square, triangle, oblong',
                                       :published_at_natural => '')
 
       expect(category_links_for_navigation.count).to eq(5)

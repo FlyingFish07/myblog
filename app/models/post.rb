@@ -1,7 +1,8 @@
 class Post < ActiveRecord::Base
   DEFAULT_LIMIT = 5
 
-  acts_as_taggable
+  acts_as_taggable  # Alias for acts_as_taggable_on :tags
+  acts_as_taggable_on :categories 
 
   has_many                :comments, :dependent => :destroy
   has_many                :approved_comments, :class_name => 'Comment'
@@ -10,7 +11,7 @@ class Post < ActiveRecord::Base
   before_validation       :set_dates
   before_save             :apply_filter
 
-  validates               :title, :slug, :body, :presence => true
+  validates               :title, :slug, :body, :category_list, :presence => true
   validate                :validate_published_at_natural
 
   searchable do
@@ -48,36 +49,44 @@ class Post < ActiveRecord::Base
       post.generate_slug
       post.set_dates
       post.apply_filter
-      post.tag_list.each do |tag|
-        post.tags << ActsAsTaggableOn::Tag.find_or_create_with_like_by_name(tag)
-      end
+      # 预览时无需新建tag
+      # post.tag_list.each do |tag|
+      #   post.tags << ActsAsTaggableOn::Tag.find_or_create_with_like_by_name(tag)
+      # end
       post
     end
 
     def find_recent(options = {})
       tag = options.delete(:tag)
-      include_tags = options[:include] == :tags
+      category = options.delete(:category)
+      # not used 
+      # include_tags = options[:include] == :tags
+      # include_categories = options[:include] == :categories
+
       order = 'published_at DESC'
       conditions = ['published_at < ?', Time.zone.now]
       limit = options[:limit] ||= DEFAULT_LIMIT
-      page = options[:page]
-      if options[:page].nil?
-        page = 1
-      end
+      page = options[:page] ||= 1
 
+      result = nil
       if tag
-        result = Post.tagged_with(tag)
+        result = Post.tagged_with(tag) # alias tagged_with(tag, :on => tags)
         result = result.where(conditions)
-        result = result.includes(:tags) if include_tags
-        # result.order(order).limit(limit)
-        result.order(order).paginate(:page => page, :per_page => limit)
+      elsif category
+        result = Post.tagged_with(category, :on => :categories)
+        result = result.where(conditions)
       else
         result = where(conditions)
-        result = result.includes(:tags) if include_tags
-        # result.order(order).limit(limit)
-        result.order(order).paginate(:page => page, :per_page => limit)
       end
+
+      result = result.includes(:tags)
+      result = result.includes(:categories) 
+      # result.order(order).limit(limit)
+      result.order(order).paginate(:page => page, :per_page => limit)
+
     end
+
+
 
     def find_by_permalink(year, month, day, slug, options = {})
       begin
@@ -144,14 +153,28 @@ class Post < ActiveRecord::Base
     self.slug.slugorize!
   end
 
-  def tag_list=(value)
+
+  def category_list=(value)
     value = value.split(',') if value.is_a?(String)
-    value.map!{ |tag_name| tag_name.gsub!('&', 'and')
-      tag_name.gsub!(/[^A-Za-z0-9_ \.-]/, '')
-      tag_name }
+    # & 符号是特殊字符，分类为支持订阅不允许使用此字符
+    value.map!{ |category_name| category_name.gsub!('&', 'and')
+      category_name.gsub!(/[^A-Za-z0-9_ \.-]/, '')
+      category_name }
 
     # TODO: Contribute this back to acts_as_taggable_on_steroids plugin
     value = value.join(", ") if value.respond_to?(:join)
     super(value)
   end
+
+  # 下面是用来进行标签过滤，目前不需要过滤
+  # def tag_list=(value)
+  #   value = value.split(',') if value.is_a?(String)
+  #   value.map!{ |tag_name| tag_name.gsub!('&', 'and')
+  #     tag_name.gsub!(/[^A-Za-z0-9_ \.-]/, '')
+  #     tag_name }
+
+  #   # TODO: Contribute this back to acts_as_taggable_on_steroids plugin
+  #   value = value.join(", ") if value.respond_to?(:join)
+  #   super(value)
+  # end
 end

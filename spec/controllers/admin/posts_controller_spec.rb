@@ -118,7 +118,7 @@ describe Admin::PostsController do
       put :update, :id => 1, :post => {
         'title'                => "My Updated Post",
         'body'                 => "hello this is my updated post",
-        'tag_list'             => "red, green, blue, magenta",
+        'category_list'        => "red, green, blue, magenta",
         'published_at_natural' => "1 hour from now",
         'slug'                 => "my-manually-entered-updated-post-slug",
         'minor_edit'           => "1"
@@ -126,7 +126,7 @@ describe Admin::PostsController do
 
       expect(assigns(:post).title).to eq("My Updated Post")
       expect(assigns(:post).body).to eq("hello this is my updated post")
-      expect(assigns(:post).tag_list).to eq(["red", "green", "blue", "magenta"])
+      expect(assigns(:post).category_list).to eq(["red", "green", "blue", "magenta"])
       expect(assigns(:post).published_at_natural).to eq("1 hour from now")
       expect(assigns(:post).slug).to eq("my-manually-entered-updated-post-slug")
       expect(assigns(:post).minor_edit).to eq("1")
@@ -146,7 +146,7 @@ describe Admin::PostsController do
       put :create, :id => 1, :post => {
         'title'                => "My Awesome New Post",
         'body'                 => "hello this is my awesome new post",
-        'tag_list'             => "teal, azure, turquoise",
+        'category_list'        => "teal, azure, turquoise",
         'published_at_natural' => "now",
         'slug'                 => "my-manually-entered-slug",
         'minor_edit'           => "0"
@@ -154,7 +154,7 @@ describe Admin::PostsController do
 
       expect(assigns(:post).title).to eq("My Awesome New Post")
       expect(assigns(:post).body).to eq("hello this is my awesome new post")
-      expect(assigns(:post).tag_list).to eq(["teal", "azure", "turquoise"])
+      expect(assigns(:post).category_list).to eq(["teal", "azure", "turquoise"])
       expect(assigns(:post).published_at_natural).to eq("now")
       expect(assigns(:post).slug).to eq("my-manually-entered-slug")
       expect(assigns(:post).minor_edit).to eq("0")
@@ -163,9 +163,10 @@ describe Admin::PostsController do
 
   def valid_post_attributes
     {
-      'title'      => "My Post",
-      'body'       => "hello this is my post",
-      'minor_edit' => "0"
+      'title'         => "My Post",
+      'body'          => "hello this is my post",
+      'category_list' => "blue, green",
+      'minor_edit'    => "0"
     }
   end
 
@@ -223,7 +224,7 @@ describe Admin::PostsController, 'with an AJAX request to preview' do
     xhr :post, :preview, :post => {
       :title                => 'My Post',
       :body                 => 'body',
-      :tag_list             => 'ruby',
+      :category_list             => 'ruby',
       :published_at_natural => 'now'
     }
   end
@@ -231,7 +232,7 @@ describe Admin::PostsController, 'with an AJAX request to preview' do
   it "assigns a new post for the view" do
     expect(assigns(:post).title).to eq('My Post')
     expect(assigns(:post).body).to eq('body')
-    expect(assigns(:post).tag_list).to eq(['ruby'])
+    expect(assigns(:post).category_list).to eq(['ruby'])
     expect(assigns(:post).published_at_natural).to eq('now')
   end
 end

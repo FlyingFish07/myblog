@@ -2,10 +2,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 require File.dirname(__FILE__) + '/../factories'
 
 describe Post, "integration" do
-  describe 'setting tag_list' do
+  describe 'setting category_list' do
     it 'increments tag counter cache' do
-      post1 = Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
-      post2 = Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
+      post1 = Post.create!(:title => 'My Post', :body => "body", :category_list => "ruby")
+      post2 = Post.create!(:title => 'My Post', :body => "body", :category_list => "ruby")
       expect(ActsAsTaggableOn::Tag.find_by_name('ruby').taggings_count).to eq(2)
       Post.last.destroy
       expect(ActsAsTaggableOn::Tag.find_by_name('ruby').taggings_count).to eq(1)
@@ -84,17 +84,17 @@ describe Post, '#generate_slug' do
   end
 end
 
-describe Post, '#tag_list=' do
+describe Post, '#category_list=' do
   it 'accepts an array argument so it is symmetrical with the reader' do
     p = Post.new
-    p.tag_list = ["a", "b"]
-    expect(p.tag_list).to eq(["a", "b"])
+    p.category_list = ["a", "b"]
+    expect(p.category_list).to eq(["a", "b"])
   end
 
   it 'filters the tag list and keeps only alphanumeric, underscore, space, dot and dash characters' do
     p = Post.new
-    p.tag_list = 'square, triangle, oblong, whacky-& $#*wild-1.0'
-    expect(p.tag_list).to eq(['square', 'triangle', 'oblong', 'whacky-and wild-1.0'])
+    p.category_list = 'square, triangle, oblong, whacky-& $#*wild-1.0'
+    expect(p.category_list).to eq(['square', 'triangle', 'oblong', 'whacky-and wild-1.0'])
   end
 end
 
@@ -209,7 +209,7 @@ end
 
 describe Post, '#denormalize_comments_count!' do
   it 'updates approved_comments_count without triggering AR callbacks' do
-    post = Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
+    post = Post.create!(:title => 'My Post', :body => "body", :category_list => "ruby")
     comment_count = 42
     allow(post).to receive(:approved_comments).and_return(double("approved_comments association", :count => comment_count))
 
@@ -224,6 +224,7 @@ describe Post, 'validations' do
       :title                => "My Post",
       :slug                 => "my-post",
       :body                 => "hello this is my post",
+      :category_list        => "test",
       :published_at_natural => 'now'
     }
   end
@@ -255,7 +256,7 @@ describe Post, '.build_for_preview' do
   before(:each) do
     @post = Post.build_for_preview(:title => 'My Post',
                                    :body => "body",
-                                   :tag_list => "ruby",
+                                   :category_list => "ruby",
                                    :published_at_natural => 'now')
   end
 
@@ -276,7 +277,8 @@ describe Post, '.build_for_preview' do
     expect(@post.body_html).to eq("<p>body</p>\n")
   end
 
-  it 'generates tags from tag_list' do
-    expect(@post.tags.collect {|tag| tag.name}).to eq(['ruby'])
-  end
+  # 预览时不新增 tag
+  # it 'generates categories from category_list' do
+  #   expect(@post.categories.collect {|category| category.name}).to eq(['ruby'])
+  # end
 end

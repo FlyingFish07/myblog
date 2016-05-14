@@ -82,4 +82,7 @@ group :development, :test do
   # gem 'web-console', '3.0.0'
   gem 'rspec-rails'
   gem 'byebug','8.2.2'
+  gem 'better_errors'
+  gem 'quiet_assets'
+  gem 'awesome_print'
 end

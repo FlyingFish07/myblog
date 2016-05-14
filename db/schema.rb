@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160501090706) do
+ActiveRecord::Schema.define(version: 20160514053222) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "post_id",      limit: 4,                   null: false
@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(version: 20160501090706) do
     t.text     "body_html",               limit: 65535,                              null: false
     t.boolean  "active",                                              default: true, null: false
     t.integer  "approved_comments_count", limit: 4,                   default: 0,    null: false
-    t.string   "cached_tag_list",         limit: 255
     t.datetime "published_at",                          precision: 6
     t.datetime "created_at",                            precision: 6
     t.datetime "updated_at",                            precision: 6

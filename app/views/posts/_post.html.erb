@@ -9,6 +9,9 @@
     <ul class="list-inline">
       <li class="date">Posted on <%= format_post_date(post.published_at) if post.published? %></li>
       <li class="comments"><%= link_to_post_comments post %></li>
+      <% unless post.categories.empty? -%>
+        <li class="categories">Categorized <%= linked_category_list(post.categories) %></li>
+      <% end -%>
       <% unless post.tags.empty? -%>
         <li class="tags">Tagged <%= linked_tag_list(post.tags) %></li>
       <% end -%>

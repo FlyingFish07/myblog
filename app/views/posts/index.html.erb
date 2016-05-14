@@ -1,16 +1,20 @@
 <% content_for :page_title do -%>
-  <%= posts_title(@tag) %>
+  <%= posts_title(@category || @tag) %>
 <% end -%>
 
 <% content_for :head do -%>
-  <%= auto_discovery_link_tag(:atom, @tag.nil? ? formatted_posts_path(:format => 'atom') : posts_path(:tag => @tag, :format => 'atom')) %>
+  <% if not @category.nil? -%>
+    <%= auto_discovery_link_tag(:atom, posts_path(:category => @category, :format => 'atom')) %>
+  <% else -%>
+    <%= auto_discovery_link_tag(:atom, formatted_posts_path(:format => 'atom')) %>
+  <% end -%>
 <% end -%>
 
 <% if @posts.empty? -%>
 	<p>There are no posts yet.</p>
 <% else -%>
 	<% @posts.each do |post| -%>
-	<div class="post" id="<%= dom_id(post) %>">
+	<div class="post" id="<%= dom_id(post) -%>">
 	  <%= render post %>
 	</div>
 	<% end -%>

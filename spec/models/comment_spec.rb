@@ -7,7 +7,8 @@ describe Comment do
       :author => 'Don Alias',
       :author_email => 'don@example.com',
       :body   => 'This is a comment',
-      :post   => Post.new
+      # :post   => Post.new
+      :post  => Post.create!(:title => 'My Post', :body => "body", :category_list => "ruby")
     }.merge(extra)
   end
 

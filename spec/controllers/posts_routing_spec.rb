@@ -7,18 +7,18 @@ describe PostsController do
       expect({:get => "/posts.atom"}).to route_to(:controller => "posts", :action => "index", :format => "atom")
     end
 
-    it "should generate tag params" do
-      expect({:get => "/code"}).to route_to(:controller => "posts", :action => "index", :tag => "code", :format => nil)
-      expect({:get => "/code.atom"}).to route_to(:controller => "posts", :action => "index", :tag => "code", :format => "atom")
+    it "should generate category params" do
+      expect({:get => "/code"}).to route_to(:controller => "posts", :action => "index", :category => "code", :format => nil)
+      expect({:get => "/code.atom"}).to route_to(:controller => "posts", :action => "index", :category => "code", :format => "atom")
     end
 
-    it "should generate the correct params when the tag name contains a dot character" do
-      expect({:get => "/enki.o"}).to route_to(:controller => "posts", :action => "index", :tag => "enki.o", :format => nil)
-      expect({:get => "/enki.o.atom"}).to route_to(:controller => "posts", :action => "index", :tag => "enki.o", :format => "atom")
+    it "should generate the correct params when the category name contains a dot character" do
+      expect({:get => "/enki.o"}).to route_to(:controller => "posts", :action => "index", :category => "enki.o", :format => nil)
+      expect({:get => "/enki.o.atom"}).to route_to(:controller => "posts", :action => "index", :category => "enki.o", :format => "atom")
     end
 
-    it "should route /pages to posts#index with tag pages" do
-      expect({:get => "/pages"}).to route_to(:controller => "posts", :action => "index", :tag => "pages", :format => nil)
+    it "should route /pages to posts#index with category pages" do
+      expect({:get => "/pages"}).to route_to(:controller => "posts", :action => "index", :category => "pages", :format => nil)
     end
 
     it "should generate show params" do
