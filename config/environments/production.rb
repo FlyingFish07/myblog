@@ -9,7 +9,9 @@ Enki::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  # zyh modified
+  # config.serve_static_assets = false
+  config.serve_static_files = false
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -31,7 +33,7 @@ Enki::Application.configure do
   # config.force_ssl = true
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :info
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
@@ -62,4 +64,23 @@ Enki::Application.configure do
   config.active_support.deprecation = :notify
 
   config.eager_load = true
+
+  # actionmailer config
+  config.action_mailer.default_url_options = { host: Enki::Config.default[:url] }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              Enki::Config.default[:exception_mail, :smtp_server],
+    port:                 Enki::Config.default[:exception_mail, :smtp_server_port],
+    domain:               Enki::Config.default[:url],
+    user_name:            Enki::Config.default[:exception_mail, :username],
+    password:             Enki::Config.default[:exception_mail, :password],
+    authentication:       'login',
+    enable_starttls_auto: true  }
+  
+
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_options = {from: Enki::Config.default[:exception_mail, :email]}
+
+
 end
