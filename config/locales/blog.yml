@@ -20,8 +20,22 @@ zh-CN:
         name: 图像名称
         pimage: 图像
       comment:
+        author: 作者
         author_url: 网址
         author_email: 电子邮箱
+        body: 评论内容
+      post:
+        title: 标题
+        body: 文章内容
+        category_list: 分类列表
+        tag_list: 标签列表
+        published_at_natural: 发布时间
+        slug: 短链接
+        minor_edit: 细微修改
+      page:
+        title: 标题
+        body: 文章内容
+        slug: 短链接
   formtastic:
     # titles:
     #   post_details: "Post details"

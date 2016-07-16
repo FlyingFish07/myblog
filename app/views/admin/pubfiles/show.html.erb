@@ -1,4 +1,5 @@
-<h1>修改文件信息 </h1>
+<div class="fileform">
+<h1>修改文件信息</h1>
 
 <%= semantic_form_for([:admin, @pubfile]) do |form| -%>
   <%= form.inputs do -%>
@@ -7,6 +8,7 @@
     <%= form.input :description , :required => false%>
   <% end %>
   <%= form.actions do -%>
-    <%= form.action :submit, :as => :button %>
+    <%= form.action :submit, :as => :button, :button_html => {:class => "btn btn-primary"} %>
   <% end -%>
 <% end -%>
+</div>

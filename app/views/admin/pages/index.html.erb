@@ -1,31 +1,26 @@
-<h1>Your pages</h1>
-
-<table id='pages'>
-  <thead>
-    <tr>
-      <th>Created At</th>
-      <th>Title</th>
-      <th>Excerpt</th>
-      <th>Link</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% if @pages.empty? -%>
-      <tr><td colspan="5">There are no pages at this time.</td></tr>
-    <% else -%>
-      <%= render :partial => 'page', :collection => @pages %>
-    <% end -%>
-  </tbody>
-
-  <tfoot>
-    <% if @pages.total_pages > 1 -%>
-      <tr class="pagination">
-        <td colspan='5'>
-          <%= will_paginate(@pages, :previous_label => '« Newer', :next_label => 'Older »') %>
-        </td>
+<h3>页面列表</h1>
+<div class="table-responsive">
+  <table class="table table-condensed table-striped" id='pages'>
+    <thead>
+      <tr>
+        <th>创建日期</th>
+        <th>标题</th>
+        <th>摘录</th>
+        <th>链接地址</th>
+        <th>动作</th>
       </tr>
-    <% end -%>
-  </tfoot>
-</table>
+    </thead>
+    
+    <tbody>
+      <% if @pages.empty? -%>
+        <tr><td colspan="5">当前没有任何页面.</td></tr>
+      <% else -%>
+        <%= render :partial => 'page', :collection => @pages %>
+      <% end -%>
+    </tbody>
+  </table>
+
+  <div class="text-center">
+    <%= will_paginate @pages, :renderer => MyBootstrapPagination::Rails %>
+  </div>
+</div>

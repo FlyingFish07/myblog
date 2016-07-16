@@ -1,12 +1,25 @@
-<tr id="comment-<%= comment.id %>" class="<%= cycle('', 'alt') %>">
-  <td class='created_at'><%= comment.created_at.strftime('%d %b, %Y') %></td>
-  <td class='author'><%= link_to(comment.author, admin_comment_path(comment)) %></td>
+<tr>
+  <td class="text-center"><%= comment.created_at.strftime('%Y.%m.%d') %></td>
+  <td class="text-center"><%= link_to(comment.author, admin_comment_path(comment)) %></td>
   <td><%= truncate(comment.body, :length => 40) %></td>
-  <td><%= link_to(comment.post_title, admin_post_path(comment.post))%></td>
-  <td>
-    <%= link_to(image_tag('silk/pencil.png', :alt => 'edit'), admin_comment_path(comment)) %>
-    <%= form_for(comment, :as => :comment, :url => admin_comment_path(comment), :html => {:class => 'delete-item', :method => :delete}) do |form| -%>
-      <%= image_submit_tag("silk/delete.png", :alt => "Delete Comment") %>
-    <% end -%>
+  <td class="text-center"><%= link_to(comment.post_title, admin_post_path(comment.post))%></td>
+  <td class="tbactions text-center">
+    <% if policy(comment).update? %>
+      <div class="iconbtn" data-toggle="tooltip" data-placement="down" title="编辑">
+      <%= link_to admin_comment_path(comment) do %>
+        <%= content_tag(:i, "" ,:class=>'fa fa-edit') -%>
+      <% end %>
+      </div>
+      <%= form_for(comment, :as => :comment, :url => admin_comment_path(comment), :html => {:class => 'delete-item', :method => :delete}) do |form| -%>
+        <label for="mySubmit-<%= comment.id %>" class="btn-link iconbtn" data-toggle="tooltip" data-placement="down" title="删除"><i class="fa fa-trash"></i></label>
+        <input id="mySubmit-<%= comment.id %>" type="submit" value="Go" class="hidden" />
+      <% end -%>
+    <% else %>
+      <div class="iconbtn" data-toggle="tooltip" data-placement="down" title="查看">
+        <%= link_to view_admin_comment_path(comment) do %>
+          <%= content_tag(:i, "" ,:class=>'fa fa-info-circle') -%>
+        <% end %>
+      </div>
+    <% end %>
   </td>
 </tr>

@@ -14,7 +14,7 @@ $(document).ready(function (){
       $(comment_body_id).toggle();
 
       return false;
-    })
+    });
 
     $(document).click(function() {
       $('.comment-body').hide();
@@ -27,9 +27,9 @@ $(document).ready(function (){
 
       // Assume success and remove comment
       comment_link_id = '#comment-link-' + extractId($(this));
-      $(comment_link_id).remove();
+      $(comment_link_id).parent('li').remove();
       $(this).parent('div').parent('div').remove();
       return false;
     });
   }
-})
+});

@@ -1,19 +1,25 @@
 class Admin::CommentsController < Admin::BaseController
-  before_filter :find_comment, :only => [:show, :update, :destroy]
+  before_filter :find_comment, :only => [:show, :view, :update, :destroy]
+  after_action :verify_authorized, except: [:index, :show, :view]
+  after_action :verify_policy_scoped, only: :index
 
   def index
-    @comments = Comment.paginate(:page => params[:page]).includes(:post).order("created_at DESC")
+    @comments = policy_scope(Comment.paginate(:page => params[:page]).includes(:post).order("comments.created_at DESC"))
   end
 
   def show
     respond_to do |format|
       format.html {
-        render :partial => 'comment', :locals => {:comment => @comment} if request.xhr?
+        render :partial => 'show', :locals => {:comment => @comment} if request.xhr?
       }
     end
   end
 
+  def view 
+  end
+
   def update
+    authorize @comment
     if @comment.update_attributes(comment_params)
       flash[:notice] = "Updated comment by #{@comment.author}"
       redirect_to :action => 'index'
@@ -23,7 +29,8 @@ class Admin::CommentsController < Admin::BaseController
   end
 
   def destroy
-    undo_item = @comment.destroy_with_undo
+    authorize @comment
+    undo_item = @comment.destroy_with_undo(current_user)
 
     respond_to do |format|
       format.html do

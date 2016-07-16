@@ -1,16 +1,19 @@
 class Admin::PostsController < Admin::BaseController
   before_filter :find_post, :only => [:show, :update, :destroy]
+  after_action :verify_authorized, except: [:index, :create, :show, :new, :preview]
+  after_action :verify_policy_scoped, only: :index
 
   def index
     respond_to do |format|
       format.html {
-        @posts = Post.paginate(:page => params[:page]).order("coalesce(published_at, updated_at) DESC")
+        @posts = policy_scope(Post.paginate(:page => params[:page]).order("coalesce(published_at, updated_at) DESC")) 
       }
     end
   end
 
   def create
     @post = Post.new(post_params)
+    @post.user_id = current_user.id
     if @post.save
       respond_to do |format|
         format.html {
@@ -26,6 +29,7 @@ class Admin::PostsController < Admin::BaseController
   end
 
   def update
+    authorize @post
     if @post.update_attributes(post_params)
       respond_to do |format|
         format.html {
@@ -63,7 +67,8 @@ class Admin::PostsController < Admin::BaseController
   end
 
   def destroy
-    undo_item = @post.destroy_with_undo
+    authorize @post
+    undo_item = @post.destroy_with_undo(current_user)
 
     respond_to do |format|
       format.html do

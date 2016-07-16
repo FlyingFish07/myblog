@@ -1,12 +1,17 @@
-<tr class="<%= cycle('', 'alt') %>">
-  <td><%= post.published_at.try(:strftime, '%d %b, %Y') %></td>
-  <td><%= link_to (post.title == '' ? '[Untitled]' : truncate(post.title, :length => 30)), admin_post_path(post) %></td>
+<tr>
+  <td class="text-center"><%= post.published_at.try(:strftime, '%Y.%m.%d') %></td>
+  <td class="text-center"><%= link_to (post.title == '' ? '[Untitled]' : truncate(post.title, :length => 30)), admin_post_path(post) %></td>
   <td><% tmpc = truncate(post.body, :length => 55) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
-  <td><%= post.approved_comments.size %></td>
-  <td>
-    <%= link_to(image_tag('silk/pencil.png', :alt => 'edit'), admin_post_path(post)) %>
+  <td class="text-center"><%= post.approved_comments.size %></td>
+  <td class="tbactions text-center">
+    <div class="iconbtn" data-toggle="tooltip" data-placement="down" title="编辑">
+    <%= link_to admin_post_path(post), :alt => 'edit' do %>
+      <%= content_tag(:i, "" ,:class=>'fa fa-edit') -%>
+    <% end %>
+    </div>
     <%= form_for(post, :as => :post, :url => admin_post_path(post), :html => {:class => 'delete-item', :method => :delete}) do |form| -%>
-      <%= image_submit_tag("silk/delete.png", :alt => 'Delete Post') %>
+      <label for="mySubmit-<%= post.id %>" class="btn-link iconbtn" data-toggle="tooltip" data-placement="down" title="删除"><i class="fa fa-trash"></i></label>
+      <input id="mySubmit-<%= post.id %>" type="submit" value="Go" class="hidden" />
     <% end -%>
   </td>
 </tr>

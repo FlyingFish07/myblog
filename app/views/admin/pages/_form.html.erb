@@ -1,5 +1,5 @@
 <%= form.inputs do -%>
   <%= form.input :title %>
-  <%= form.input :slug, :hint => "Leave blank for an auto-generated slug based on the title." %>
-  <%= form.input :body, :hint => "<a href='http://kramdown.gettalong.org/quickref.html'>Markdown enabled</a>. Use Ctrl+E to switch between preview and edit mode.".html_safe -%>
+  <%= form.input :slug, :hint => "留空则会基于标题自动生成slug，建议填写以便链接有含义." %>
+  <%= form.input :body, :hint => "<a href='http://kramdown.gettalong.org/quickref.html'>支持Markdown</a>. 使用 Ctrl+E 切换<b>预览模式</b>和<b>编辑模式</b>.".html_safe -%>
 <% end -%>

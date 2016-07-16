@@ -1,9 +1,11 @@
 class Admin::PubfilesController < Admin::BaseController
   before_filter :find_pubfile, :only => [:show, :update, :destroy, :download]
+  before_filter :get_pubfiles_for_index, :only => [:index, :create, :destroy]
+  after_action :verify_authorized, except: [:index, :create, :show, :download]
+  after_action :verify_policy_scoped, only: [:index, :create, :destroy]
 
   def index
     @pubfile = Pubfile.new
-    @pubfiles = Pubfile.paginate(:page => params[:page]).order("created_at DESC")
   end
 
   def show
@@ -16,7 +18,7 @@ class Admin::PubfilesController < Admin::BaseController
 
   def create
     @pubfile = Pubfile.new(pubfile_params)
-    @pubfiles = Pubfile.paginate(:page => params[:page]).order("created_at DESC")
+    @pubfile.user_id = current_user.id
     if @pubfile.save!
       respond_to do |format|
         format.html {
@@ -32,6 +34,7 @@ class Admin::PubfilesController < Admin::BaseController
   end
   
   def update
+    authorize @pubfile
     if @pubfile.update_attributes(pubfile_params)
       flash[:notice] = " This file has updated."
       redirect_to :action => 'index'
@@ -43,8 +46,8 @@ class Admin::PubfilesController < Admin::BaseController
   end
 
   def destroy
+    authorize @pubfile
     @pubfile.destroy
-    @pubfiles = Pubfile.paginate(:page => params[:page]).order("created_at DESC")
     respond_to do |format|
       format.html do
         flash[:notice] = "This File has Deleted."
@@ -69,6 +72,10 @@ class Admin::PubfilesController < Admin::BaseController
 
   def pubfile_params
     params.require(:pubfile).permit(:pfile, :description)
+  end
+
+  def get_pubfiles_for_index
+    @pubfiles = policy_scope(Pubfile.paginate(:page => params[:page]).order("created_at DESC"))
   end
 
   protected

@@ -1,0 +1,22 @@
+<% if user_signed_in? %>
+  <%# add navigation links to this file %>
+  <ul class="nav navbar-nav">
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">资源管理 <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li><%= nav_link_to("文章管理",     admin_posts_path,      :accesskey => '2') %></li>
+        <li><%= nav_link_to("添加文章", new_admin_post_path, :accesskey => 'n') %></li>
+        <li role="separator" class="divider"></li>
+        <li><%= nav_link_to("页面管理",     admin_pages_path,      :accesskey => '3') %></li>
+        <li> <%= nav_link_to("添加页面", new_admin_page_path, :accesskey => 'p') %></li>
+        <li role="separator" class="divider"></li>
+        <li><%= nav_link_to("文件管理",  admin_pubfiles_path,   :accesskey => '5') %></li>
+        <li> <%= nav_link_to("图片管理",  admin_pubimages_path,   :accesskey => '6') %> </li>
+      </ul>
+    </li>
+    <li><%= nav_link_to("评论管理",  admin_comments_path,   :accesskey => '4') %></li>
+    <li><%= nav_link_to("动作",   admin_undo_items_path, :accesskey => '7') %></li>
+    <li><%= nav_link_to("绿灯探测",    admin_health_path,     :accesskey => '8') %></li>
+    <li><%= link_to("转到主页", root_path,       :accesskey => 'v', :title => 'View Site') %></li>
+  </ul>
+<% end %>

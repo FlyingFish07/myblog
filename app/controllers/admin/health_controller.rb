@@ -1,5 +1,5 @@
 class Admin::HealthController < Admin::BaseController
-  before_filter :require_login
+  # before_filter :require_login
   verify :method => 'post',
          :only   => 'generate_exception',
          :add_headers => {

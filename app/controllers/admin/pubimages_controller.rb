@@ -1,14 +1,16 @@
 class Admin::PubimagesController < Admin::BaseController
   before_filter :find_pubimage, :only => [:show, :update, :destroy, :download]
+  before_filter :get_pubimages_for_index, :only => [:index, :create, :destroy]
+  after_action :verify_authorized, except: [:index, :create, :download]
+  after_action :verify_policy_scoped, only: [:index, :create, :destroy]
 
   def index
     @pubimage = Pubimage.new
-    @pubimages = Pubimage.paginate(:page => params[:page]).order("created_at DESC")
   end
 
   def create
     @pubimage = Pubimage.new(pubimage_params)
-    @pubimages = Pubimage.paginate(:page => params[:page]).order("created_at DESC")
+    @pubimage.user_id = current_user.id
     if @pubimage.save!
       respond_to do |format|
         format.html {
@@ -24,8 +26,8 @@ class Admin::PubimagesController < Admin::BaseController
   end
   
   def destroy
+    authorize @pubimage
     @pubimage.destroy
-    @pubimages = Pubimage.paginate(:page => params[:page]).order("created_at DESC")
     respond_to do |format|
       format.html do
         flash[:notice] = "This File has Deleted."
@@ -50,6 +52,10 @@ class Admin::PubimagesController < Admin::BaseController
 
   def pubimage_params
     params.require(:pubimage).permit(:pimage)
+  end
+
+  def get_pubimages_for_index
+    @pubimages = policy_scope(Pubimage.paginate(:page => params[:page]).order("created_at DESC"))
   end
 
   protected

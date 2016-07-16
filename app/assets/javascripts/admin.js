@@ -15,5 +15,5 @@
 //= require jquery.livequery
 //= require jquery.form
 //= require jquery.easing.1.3
-//= require humanmsg
+//= require bootstrap-sprockets
 //= require_tree ./admin

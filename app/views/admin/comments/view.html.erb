@@ -1,0 +1,16 @@
+<div class="comment-view">
+  <h3>评论详情</h3>
+  
+  <dl class="dl-horizontal">
+  <dt>作者：</dt>
+  <dd><%= @comment.author %></dd>
+
+  <dt>电子邮箱：</dt>
+  <dd><%= @comment.author_email %></dd>
+
+  <dt>网址：</dt>
+  <dd><%= @comment.author_url %></dd>
+  <dt>评论内容：</dt>
+  <dd><%= raw(@comment.body_html) %></dd>
+</dl>
+</div>

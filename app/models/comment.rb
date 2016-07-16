@@ -62,11 +62,11 @@ class Comment < ActiveRecord::Base
     self.post.denormalize_comments_count!
   end
 
-  def destroy_with_undo
+  def destroy_with_undo(user)
     undo_item = nil
     transaction do
       self.destroy
-      undo_item = DeleteCommentUndo.create_undo(self)
+      undo_item = DeleteCommentUndo.create_undo(self, user)
     end
     undo_item
   end

@@ -1,13 +1,14 @@
-<h1>图像库</h1>
-
+<h3>图像库</h3>
+<div class="fileform bottom-line">
 <%= semantic_form_for([:admin, @pubimage]) do |form| %>
   <%= render :partial => 'form', :locals => {:form => form} %>
   <%= form.actions do %>
-    <%= form.action :submit, :as => :button %>
+    <%= form.action :submit, :as => :button, :button_html => {:class => "btn btn-primary"} %>
   <% end %>
 <% end %>
-
-<table id='pubimages'>
+</div>
+<div class="table-responsive">
+<table id="pubimages" class="table table-condensed table-striped">
   <thead>
     <tr>
       <th>上传时间</th>
@@ -24,14 +25,8 @@
       <%= render :partial => 'pubimage', :collection => @pubimages %>
     <% end -%>
   </tbody>
-
-  <tfoot>
-    <% if @pubimages.total_pages > 1 -%>
-      <tr class="pagination">
-        <td colspan='5'>
-          <%= will_paginate(@pubimages, :previous_label => '&lt;&lt; Newer', :next_label => 'Older &gt;&gt;') %>
-        </td>
-      </tr>
-    <% end -%>
-  </tfoot>
 </table>
+  <div class="text-center">
+    <%= will_paginate @pubimages, :renderer => MyBootstrapPagination::Rails %>
+  </div>
+</div>

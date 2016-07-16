@@ -1,12 +1,17 @@
-<tr class="<%= cycle('', 'alt') %>">
-  <td><%= page.created_at.strftime('%d %b, %Y') %></td>
-  <td><%= link_to(page.title, admin_page_path(page)) %></td>
+<tr>
+  <td class="text-center"><%= page.created_at.strftime('%Y.%m.%d') %></td>
+  <td class="text-center"><%= link_to(page.title, admin_page_path(page)) %></td>
   <td><%= truncate(page.body, :length => 50) %></td>
-  <td><%= page.slug %></td>
-  <td>
-    <%= link_to(image_tag('silk/pencil.png', :alt => 'edit'), admin_page_path(page)) %>
+  <td class="text-center"><%= page.slug %></td>
+  <td class="tbactions text-center" >
+    <div class="iconbtn" data-toggle="tooltip" data-placement="down" title="编辑">
+    <%= link_to admin_page_path(page), :alt => 'edit' do %>
+      <%= content_tag(:i, "" ,:class=>'fa fa-edit') -%>
+    <% end %>
+    </div>
     <%= form_for(page, :as => :page, :url => admin_page_path(page), :html => {:class => 'delete-item', :method => :delete}) do |form| -%>
-      <%= image_submit_tag("silk/delete.png", :alt => 'Delete Comment') %>
+      <label for="mySubmit-<%= page.id %>" class="btn-link iconbtn" data-toggle="tooltip" data-placement="down" title="删除"><i class="fa fa-trash"></i></label>
+      <input id="mySubmit-<%= page.id %>" type="submit" value="Go" class="hidden" />
     <% end -%>
   </td>
 </tr>

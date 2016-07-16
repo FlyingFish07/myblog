@@ -15,16 +15,19 @@ class DeletePageUndo < UndoItem
   end
 
   def description
-    "Deleted page '#{loaded_data['title']}'"
+    "删除页面 '#{loaded_data['title']}' 成功"
   end
 
   def complete_description
-    "Recreated page '#{loaded_data['title']}'"
+    "还原页面 '#{loaded_data['title']}' 成功"
   end
 
   class << self
-    def create_undo(page)
-      DeletePageUndo.create!(:data => page.attributes.to_yaml)
+    def create_undo(page, user)
+      DeletePageUndo.create!(:data => page.attributes.to_yaml, :user => user)
+    end
+    def policy_class
+      UndoItemPolicy
     end
   end
 end

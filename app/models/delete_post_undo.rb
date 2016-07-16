@@ -18,21 +18,24 @@ class DeletePostUndo < UndoItem
   end
 
   def description
-    "Deleted post '#{loaded_data[:post]["title"]}'"
+    "删除文章 '#{loaded_data[:post]["title"]}' 成功"
   end
 
   def complete_description
-    "Recreated post '#{loaded_data[:post]["title"]}'"
+    "还原文章 '#{loaded_data[:post]["title"]}' 成功"
   end
 
   class << self
-    def create_undo(post)
+    def create_undo(post, user)
       # 由于还原后的post的id已经变了，所以tag、category也需要保存
       post_with_attributes = post.attributes
       post_with_attributes[:category_list] = post.category_list
       post_with_attributes[:tag_list] = post.category_list
       
-      DeletePostUndo.create!(:data => {:post => post_with_attributes, :comments => post.comments.collect(&:attributes)}.to_yaml)
+      DeletePostUndo.create!(:data => {:post => post_with_attributes, :comments => post.comments.collect(&:attributes)}.to_yaml, :user => user)
+    end
+    def policy_class
+      UndoItemPolicy
     end
   end
 end

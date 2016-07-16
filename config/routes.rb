@@ -1,13 +1,19 @@
 Enki::Application.routes.draw do
+  devise_for :users, :path => "admin"
+  get '/admin' => "admin/dashboard#show", as: :user_root
+
   get 'search'  => 'search#show'
 
   namespace :admin do
-    resource :session
+    resources :users
+    # resource :session
 
     resources :posts, :pages do
       post 'preview', :on => :collection
     end
-    resources :comments
+    resources :comments do
+      get 'view', :on => :member
+    end
     resources :undo_items do
       post 'undo', :on => :member
     end

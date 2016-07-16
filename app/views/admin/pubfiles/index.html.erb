@@ -1,13 +1,15 @@
-<h1>公共文件库</h1>
-
+<h3>公共文件库</h3>
+<div class="fileform bottom-line">
 <%= semantic_form_for([:admin, @pubfile]) do |form| -%>
   <%= render :partial => 'form', :locals => {:form => form} %>
   <%= form.actions do -%>
-    <%= form.action :submit, :as => :button -%>
+    <%= form.action :submit, :as => :button, :button_html => {:class => "btn btn-primary"} -%>
   <% end -%>
 <% end -%>
+</div>
 
-<table id='pubfiles'>
+<div class="table-responsive">
+<table id="pubfiles" class="table table-condensed table-striped">
   <thead>
     <tr>
       <th>上传时间</th>
@@ -24,14 +26,8 @@
       <%= render :partial => 'pubfile', :collection => @pubfiles %>
     <% end -%>
   </tbody>
-
-  <tfoot>
-    <% if @pubfiles.total_pages > 1 -%>
-      <tr class="pagination">
-        <td colspan='5'>
-          <%= will_paginate(@pubfiles, :previous_label => '&lt;&lt; Newer', :next_label => 'Older &gt;&gt;') %>
-        </td>
-      </tr>
-    <% end -%>
-  </tfoot>
 </table>
+  <div class="text-center">
+    <%= will_paginate @pubfiles, :renderer => MyBootstrapPagination::Rails %>
+  </div>
+</div>

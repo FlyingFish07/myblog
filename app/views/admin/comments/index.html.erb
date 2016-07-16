@@ -1,31 +1,25 @@
-<h1>Comments</h1>
-
-<table id='comments'>
+<h3>评论列表</h3>
+<div class="table-responsive">
+<table class="table table-condensed table-striped" id='comments'>
   <thead>
     <tr>
-      <th>Created At</th>
-      <th>Commenter</th>
-      <th>Excerpt</th>
-      <th>Post</th>
-      <th>Actions</th>
+      <th>评论日期</th>
+      <th>作者</th>
+      <th>摘录</th>
+      <th>文章</th>
+      <th>动作</th>
     </tr>
   </thead>
 
   <tbody>
     <% if @comments.empty? -%>
-      <tr><td colspan="5">There are no comments at this time.</td></tr>
+      <tr><td colspan="5">当前没有评论.</td></tr>
     <% else -%>
       <%= render :partial => 'comment', :collection => @comments %>
     <% end -%>
   </tbody>
-
-  <tfoot>
-    <% if @comments.total_pages > 1 -%>
-      <tr class="pagination">
-        <td colspan='5'>
-          <%= will_paginate(@comments, :previous_label => '« Newer', :next_label => 'Older »') %>
-        </td>
-      </tr>
-    <% end -%>
-  </tfoot>
 </table>
+<div class="text-center">
+    <%= will_paginate @comments, :renderer => MyBootstrapPagination::Rails %>
+  </div>
+</div>

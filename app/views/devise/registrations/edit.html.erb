@@ -1,0 +1,41 @@
+<div class="authform">
+  <h3>编辑 <%= resource_name.to_s.humanize %></h3>
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f| %>
+    <%= devise_error_messages! %>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, :autofocus => true, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>正在等待确认: <%= resource.unconfirmed_email %></div>
+      <% end %>
+    </div>
+    <fieldset>
+      <p>如果您不想修改密码，请将这些字段留空。</p>
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, :autocomplete => 'off', class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+      </div>
+    </fieldset>
+    <fieldset>
+      <p>您必须键入当前密码以确认修改。</p>
+      <div class="form-group">
+        <%= f.label :current_password %>
+        <%= f.password_field :current_password, class: 'form-control' %>
+      </div>
+    </fieldset>
+    <%= f.submit '提交', :class => 'button right' %>
+  <% end %>
+</div>
+<!-- <div class="authform">
+<h3>Cancel Account</h3>
+<p>Unhappy? We'll be sad to see you go.</p>
+<%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button right' %>
+</div> -->

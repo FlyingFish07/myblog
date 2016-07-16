@@ -6,6 +6,7 @@ class Post < ActiveRecord::Base
 
   has_many                :comments, :dependent => :destroy
   has_many                :approved_comments, :class_name => 'Comment'
+  belongs_to              :user
 
   before_validation       :generate_slug
   before_validation       :set_dates
@@ -116,9 +117,9 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def destroy_with_undo
+  def destroy_with_undo(user)
     transaction do
-      undo = DeletePostUndo.create_undo(self)
+      undo = DeletePostUndo.create_undo(self,user)
       self.destroy
       return undo
     end

@@ -1,16 +1,19 @@
 class Admin::PagesController < Admin::BaseController
   before_filter :find_page, :only => [:show, :update, :destroy]
+  after_action :verify_authorized, except: [:index, :create, :show, :new, :preview]
+  after_action :verify_policy_scoped, only: :index
 
   def index
     respond_to do |format|
       format.html {
-        @pages = Page.paginate(:page => params[:page]).order("created_at DESC")
+        @pages = policy_scope(Page.paginate(:page => params[:page]).order("created_at DESC"))
       }
     end
   end
 
   def create
     @page = Page.new(page_params)
+    @page.user_id = current_user.id
     if @page.save
       respond_to do |format|
         format.html {
@@ -26,6 +29,7 @@ class Admin::PagesController < Admin::BaseController
   end
 
   def update
+    authorize @page
     if @page.update_attributes(page_params)
       respond_to do |format|
         format.html {
@@ -63,7 +67,8 @@ class Admin::PagesController < Admin::BaseController
   end
 
   def destroy
-    undo_item = @page.destroy_with_undo
+    authorize @page
+    undo_item = @page.destroy_with_undo(current_user)
 
     respond_to do |format|
       format.html do

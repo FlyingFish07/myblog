@@ -1,11 +1,11 @@
 <%= form.inputs do -%>
   <%= form.input :title -%>
-  <%= form.input :body, :hint => "<a href='http://kramdown.gettalong.org/quickref.html'>Markdown enabled</a>. Use Ctrl+E to switch between preview and edit mode.".html_safe -%>
-  <%= form.input :category_list, :input_html => { :value => @post.category_list.join(', ')}, :as => 'string', :required => false, :hint => 'Comma separated: technology, life&hellip;'.html_safe -%>
-  <%= form.input :tag_list, :input_html => { :value => @post.tag_list.join(', ')}, :as => 'string', :required => false, :hint => 'Comma separated: ruby, rails&hellip;'.html_safe -%>
+  <%= form.input :body, :hint => "<a href='http://kramdown.gettalong.org/quickref.html'>支持Markdown</a>. 使用 Ctrl+E 切换<b>预览模式</b>和<b>编辑模式</b>.".html_safe -%>
+  <%= form.input :category_list, :input_html => { :value => @post.category_list.join(', ')}, :as => 'string', :required => false, :hint => '使用逗号(英文)分隔，仅支持英文数字及空格，例如: technology, life&hellip;'.html_safe -%>
+  <%= form.input :tag_list, :input_html => { :value => @post.tag_list.join(', ')}, :as => 'string', :required => false, :hint => '使用逗号(英文)分隔，支持中文，例如: ruby, rails&hellip;'.html_safe -%>
 <% end -%>
 <%= form.inputs do -%>
-  <%= form.input :published_at_natural, :label => 'Published at', :as => 'string', :hint => 'Examples: now, yesterday, 1 hour from now, '.html_safe + link_to("etc".html_safe, "http://chronic.rubyforge.org/") + '. Leave blank for an unpublished draft.' -%>
-  <%= form.input :slug, :hint => "Leave blank for an auto-generated slug based on the title." -%>
-  <%= form.input :minor_edit, :as => 'boolean', :hint => 'Minor edits will not show up as refreshed in feed readers. Use this to fix spelling mistakes and the like.' unless @post.new_record? -%>
+  <%= form.input :published_at_natural, :as => 'string', :hint => '例如: now, yesterday, 1 hour from now, '.html_safe + link_to("等等".html_safe, "http://chronic.rubyforge.org/") + '. 不发布请留空.' -%>
+  <%= form.input :slug, :hint => "留空则会基于标题自动生成slug，建议填写以便链接有含义." -%>
+  <%= form.input :minor_edit, :as => 'boolean', :hint => '细微修改不提示订阅用户。用于更新拼写错误或是其他类似的情况.' unless @post.new_record? -%>
 <% end -%>

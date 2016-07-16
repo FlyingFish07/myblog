@@ -14,7 +14,9 @@ $navbar-default-link-color: $navbar-default-color;
 $navbar-default-link-hover-bg:#999999;
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
-@import "bootstrap";
+@import "bootstrap-custom";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 
 /*

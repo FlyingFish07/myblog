@@ -15,7 +15,8 @@ class PubfileUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/pubfiles"
+    # "uploads/#{model.owner.id}/#{model.id}"
+    "uploads/pubfiles/#{model.user.id}"
   end
   
   def cache_dir

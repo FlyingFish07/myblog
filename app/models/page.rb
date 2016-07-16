@@ -1,7 +1,9 @@
 class Page < ActiveRecord::Base
-  validates_presence_of :title, :slug, :body
+  belongs_to              :user
 
   before_validation     :generate_slug
+
+  validates_presence_of :title, :slug, :body
 
   before_save           :apply_filter
 
@@ -21,10 +23,10 @@ class Page < ActiveRecord::Base
     true
   end
 
-  def destroy_with_undo
+  def destroy_with_undo(user)
     transaction do
       self.destroy
-      return DeletePageUndo.create_undo(self)
+      return DeletePageUndo.create_undo(self, user)
     end
   end
 

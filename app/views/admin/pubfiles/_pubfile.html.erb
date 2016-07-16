@@ -1,11 +1,16 @@
-<tr id="pubfile-<%= pubfile.id %>" class="<%= cycle('', 'alt') %>">
-  <td class='created_at'><%= format_create_date(pubfile.created_at) %></td>
-  <td><%= link_to(pubfile.name, download_admin_pubfile_path(pubfile))%></td>
-  <td><%= truncate(pubfile.description, :length => 40) %></td>
-  <td>
-    <%= link_to(image_tag('silk/pencil.png', :alt => 'edit'), admin_pubfile_path(pubfile)) %>
+<tr>
+  <td class="text-center"><%= format_create_date(pubfile.created_at) %></td>
+  <td class="text-center"><%= link_to(pubfile.name, download_admin_pubfile_path(pubfile))%></td>
+  <td class="text-center"><%= truncate(pubfile.description, :length => 40) %></td>
+  <td class="tbactions text-center">
+     <div class="iconbtn" data-toggle="tooltip" data-placement="down" title="编辑">
+    <%= link_to admin_pubfile_path(pubfile) do %>
+      <%= content_tag(:i, "" ,:class=>'fa fa-edit') -%>
+    <% end %>
+    </div>
     <%= form_for(pubfile, :as => :pubfile, :url => admin_pubfile_path(pubfile), :html => {:class => 'delete-item', :method => :delete}) do |form| -%>
-      <%= image_submit_tag("silk/delete.png", :alt => "Delete File") %>
+      <label for="mySubmit-<%= pubfile.id %>" class="btn-link iconbtn" data-toggle="tooltip" data-placement="down" title="删除"><i class="fa fa-trash"></i></label>
+      <input id="mySubmit-<%= pubfile.id %>" type="submit" value="Go" class="hidden" />
     <% end -%>
   </td>
 </tr>

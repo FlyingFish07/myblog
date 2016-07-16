@@ -16,16 +16,19 @@ class DeleteCommentUndo < UndoItem
   end
 
   def description
-    "Deleted comment by '#{loaded_data['author']}'"
+    "删除评论成功，作者为 '#{loaded_data['author']}'"
   end
 
   def complete_description
-    "Recreated comment by '#{loaded_data['author']}'"
+    "还原评论成功，作者为 '#{loaded_data['author']}'"
   end
 
   class << self
-    def create_undo(comment)
-      DeleteCommentUndo.create!(:data => comment.attributes.to_yaml)
+    def create_undo(comment, user)
+      DeleteCommentUndo.create!(:data => comment.attributes.to_yaml, :user => user)
+    end
+    def policy_class
+      UndoItemPolicy
     end
   end
 end

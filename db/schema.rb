@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160514053222) do
+ActiveRecord::Schema.define(version: 20160707233313) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "post_id",      limit: 4,                   null: false
@@ -44,11 +44,13 @@ ActiveRecord::Schema.define(version: 20160514053222) do
     t.text     "body_html",  limit: 65535,               null: false
     t.datetime "created_at",               precision: 6
     t.datetime "updated_at",               precision: 6
+    t.integer  "user_id",    limit: 4
   end
 
   add_index "pages", ["created_at"], name: "index_pages_on_created_at", using: :btree
   add_index "pages", ["slug"], name: "pages_slug_unique_idx", using: :btree
   add_index "pages", ["title"], name: "index_pages_on_title", using: :btree
+  add_index "pages", ["user_id"], name: "index_pages_on_user_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title",                   limit: 255,                                null: false
@@ -61,10 +63,12 @@ ActiveRecord::Schema.define(version: 20160514053222) do
     t.datetime "created_at",                            precision: 6
     t.datetime "updated_at",                            precision: 6
     t.datetime "edited_at",                             precision: 6,                null: false
+    t.integer  "user_id",                 limit: 4
   end
 
   add_index "posts", ["published_at"], name: "index_posts_on_published_at", using: :btree
   add_index "posts", ["slug"], name: "posts_slug_unique_idx", using: :btree
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "pubfiles", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -72,18 +76,22 @@ ActiveRecord::Schema.define(version: 20160514053222) do
     t.string   "description", limit: 255
     t.datetime "created_at",              precision: 6, null: false
     t.datetime "updated_at",              precision: 6, null: false
+    t.integer  "user_id",     limit: 4
   end
 
-  add_index "pubfiles", ["name"], name: "index_pubfiles_on_name", unique: true, using: :btree
+  add_index "pubfiles", ["user_id", "name"], name: "index_pubfiles_on_user_id_and_name", unique: true, using: :btree
+  add_index "pubfiles", ["user_id"], name: "index_pubfiles_on_user_id", using: :btree
 
   create_table "pubimages", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "pimage",     limit: 255
     t.datetime "created_at",             precision: 6, null: false
     t.datetime "updated_at",             precision: 6, null: false
+    t.integer  "user_id",    limit: 4
   end
 
-  add_index "pubimages", ["name"], name: "index_pubimages_on_name", unique: true, using: :btree
+  add_index "pubimages", ["user_id", "name"], name: "index_pubimages_on_user_id_and_name", unique: true, using: :btree
+  add_index "pubimages", ["user_id"], name: "index_pubimages_on_user_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", limit: 255,                 null: false
@@ -119,8 +127,30 @@ ActiveRecord::Schema.define(version: 20160514053222) do
     t.string   "type",       limit: 255,                 null: false
     t.datetime "created_at",               precision: 6, null: false
     t.text     "data",       limit: 65535
+    t.integer  "user_id",    limit: 4
   end
 
   add_index "undo_items", ["created_at"], name: "index_undo_items_on_created_at", using: :btree
+  add_index "undo_items", ["user_id"], name: "index_undo_items_on_user_id", using: :btree
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "name",                   limit: 255
+    t.integer  "role",                   limit: 4
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

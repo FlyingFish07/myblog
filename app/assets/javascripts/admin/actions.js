@@ -3,10 +3,10 @@ $(document).ready(function () {
     asyncDeleteForm($(this), {
       type: "POST",
       success: function (msg) {
-        humanMsg.displayMsg( msg.message );
+        adminmsg.info( msg.message );
       },
       error: function (XMLHttpRequest, textStatus, errorThrown) {
-        humanMsg.displayMsg( 'Could not undo action' );
+        adminmsg.error( '还原失败' );
       }
     });
 
@@ -15,4 +15,4 @@ $(document).ready(function () {
     restripe();
     return false;
   });
-})
+});
