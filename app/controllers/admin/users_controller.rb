@@ -12,13 +12,28 @@ class Admin::UsersController < Admin::BaseController
     authorize @user
   end
 
+  def edit_for_omniauth
+     @user = User.find(params[:id])
+     authorize @user
+  end
+
+  def update_for_omniauth
+    @user = User.find(params[:id])
+    authorize @user
+    if @user.update_attributes(secure_params)
+      redirect_to admin_root_path, :notice => "帐号资料更新成功。"
+    else
+      redirect_to admin_root_path, :alert => "帐号资料更新失败。"
+    end
+  end
+
   def update
     @user = User.find(params[:id])
     authorize @user
     if @user.update_attributes(secure_params)
-      redirect_to users_path, :notice => "User updated."
+      redirect_to admin_root_path, :notice => "帐号资料更新成功。"
     else
-      redirect_to users_path, :alert => "Unable to update user."
+      redirect_to admin_root_path, :alert => "帐号资料更新失败。"
     end
   end
 
@@ -26,7 +41,7 @@ class Admin::UsersController < Admin::BaseController
     user = User.find(params[:id])
     authorize user
     user.destroy
-    redirect_to users_path, :notice => "User deleted."
+    redirect_to admin_root_path, :notice => "帐号删除成功。"
   end
 
   private

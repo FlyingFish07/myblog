@@ -11,6 +11,7 @@ zh-CN:
       pubfile: 公共文件
       comment: 评论
       pubimage: 图像
+      user: 用户
     attributes:
       pubfile:
         name: 文件名称

@@ -19,8 +19,15 @@ class UserPolicy
   end
 
   def destroy?
-    return false if @current_user == @user
+    # return false if @current_user == @user
     @current_user.admin?
   end
 
+  def edit_for_omniauth?
+    (not @current_user.provider.empty? ) &&  @current_user == @user
+  end
+
+  def update_for_omniauth?
+    (not @current_user.provider.empty? ) &&  @current_user == @user
+  end
 end

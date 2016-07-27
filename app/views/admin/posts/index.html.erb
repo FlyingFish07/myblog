@@ -13,7 +13,7 @@
 
     <tbody>
       <% if @posts.empty? -%>
-        <tr><td colspan="5">There are no posts at this time.</td></tr>
+        <tr><td colspan="5">当前没有任何页面.</td></tr>
       <% else -%>
         <%= render :partial => 'post', :collection => @posts %>
       <% end -%>

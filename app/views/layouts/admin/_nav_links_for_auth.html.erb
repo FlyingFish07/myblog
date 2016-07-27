@@ -5,7 +5,11 @@
     <% end %>
   <% end %>
   <% if user_signed_in? %>
-    <li><%= link_to '修改帐号信息', edit_user_registration_path %></li>
+    <% if not is_omniauth_user? -%>
+      <li><%= link_to '修改帐号信息', edit_user_registration_path %></li>
+    <% else -%>
+      <li><%= link_to '修改帐号信息', edit_for_omniauth_admin_user_path(current_user) %></li>
+    <% end -%>
     <li><%= link_to '退出', destroy_user_session_path, :method=>'delete' %></li>
   <% else %>
     <li><%= link_to '登录', new_user_session_path %></li>

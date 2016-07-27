@@ -126,6 +126,17 @@ $(document).ready(function() {
   });
 
   alertMsgAutoClose();
+
+  $('#open-id-login-link').click(function (e) {
+    $('#email-login').addClass("hidden");
+    $('#openid-login').removeClass("hidden");
+    return false;
+  });
+  $('#email-login-link').on("click", function (e) {
+    $('#openid-login').addClass("hidden");
+    $('#email-login').removeClass("hidden");
+    return false;
+  });
 });
 
 
