@@ -16,4 +16,5 @@
 //= require jquery.form
 //= require jquery.easing.1.3
 //= require bootstrap-sprockets
+//= require selectize
 //= require_tree ./admin
