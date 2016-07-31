@@ -20,6 +20,7 @@ $(function() {
       create: true,
       valueField: 'name',
       labelField: 'name',
+      delimiter: ',',
       searchField: ['name'],
       sortField: [
         {field: 'name', direction: 'asc'}
