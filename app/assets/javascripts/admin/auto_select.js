@@ -1,4 +1,5 @@
 $(function() {
+  if($('#post_category_list').length > 0){//防止报错
     $('#post_category_list').selectize({
       persist: false,
       hideSelected: true,
@@ -27,4 +28,5 @@ $(function() {
       ],
       options: JSON.parse($('#tag_value_list').text())
     });
+  }
 });
