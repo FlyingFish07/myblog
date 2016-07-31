@@ -1,7 +1,12 @@
 Enki::Application.routes.draw do
   devise_for :users, :path => "admin", :controllers => { :omniauth_callbacks => "admin/omniauth_callbacks" }
   get '/admin' => "admin/dashboard#show", as: :user_root
-  
+  # 如果取消了注册，需要添加下面代码，否则无法路由
+  as :user do
+    get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
+    put 'users' => 'devise/registrations#update', :as => 'user_registration'            
+  end
+
   get 'search'  => 'search#show'
 
   namespace :admin do
