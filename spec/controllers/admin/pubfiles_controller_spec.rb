@@ -1,12 +1,16 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 require File.dirname(__FILE__) + '/../../factories'
 
+RSpec.configure do |c|
+  c.include PunditMock
+end
+
 describe Admin::PubfilesController do
   describe 'handling GET to index' do
     before(:each) do
       FactoryGirl.create(:pubfile)
       FactoryGirl.create(:pubfile, pfile: Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'support', 'images', '美丽的sky.jpg')))
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       get :index
     end
 
@@ -22,12 +26,17 @@ describe Admin::PubfilesController do
       expect(assigns[:pubfiles].size).to eq(2)
     end
   end
-
+  describe 'handling POST to create with valid attributes' do
+    it 'creates a pubfile' do
+      sign_in FactoryGirl.create(:admin)
+      expect { post :create, :pubfile => FactoryGirl.attributes_for(:pubfile) }.to change(Pubfile, :count).by(1)
+    end
+  end
   describe 'handling GET to show' do
     before(:each) do
       @pubfile = mock_model(Pubfile)
       allow(Pubfile).to receive(:find).and_return(@pubfile)
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       get :show, :id => 1
     end
 
@@ -65,7 +74,7 @@ describe Admin::PubfilesController do
     end
 
     def do_put
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       put :update, :id => 1, :pubfile => {
         'pfile' => @pfile,
         'description'  => 'my-post'
@@ -96,7 +105,7 @@ describe Admin::PubfilesController do
     end
 
     def do_put
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       put :update, :id => 1, :pubfile => {
         'pfile' => nil,
         'description'  => 'my-post'
@@ -116,13 +125,14 @@ describe Admin::PubfilesController do
 
   describe 'handling DELETE to delete with valid attributes' do 
      before(:each) do
-      @pubfile = instance_double("pubfile")
+      @pubfile = object_double(Pubfile.new)
       allow(@pubfile).to receive(:destroy).and_return(true)
       allow(Pubfile).to receive(:find).and_return(@pubfile)
+      mock_authorize(@pubfile)
     end
 
     def do_delete
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       delete :destroy, :id => 1
     end
 
@@ -145,7 +155,7 @@ describe Admin::PubfilesController do
         @controller.render nothing: true # to prevent a 'missing template' error
         assigns[:pubfile].name = "sky.jpg"
       }
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       get :download, :id => pubfile1.id
     end
   end

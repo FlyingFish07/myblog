@@ -67,6 +67,7 @@ gem 'mysql2', '~>0.3.20'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :test do
+  gem 'simplecov', :require => false
   gem 'database_cleaner'
   gem 'cucumber-rails',    :require => false
   gem 'cucumber-websteps', :require => false
@@ -85,6 +86,7 @@ end
 
 group :development, :test do
   # gem 'web-console', '3.0.0'
+  gem 'spork', github: 'sporkrb/spork'
   gem 'rspec-rails'
   gem 'byebug','8.2.2'
   gem 'better_errors'

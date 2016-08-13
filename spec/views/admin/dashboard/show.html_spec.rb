@@ -1,7 +1,9 @@
 require File.dirname(__FILE__) + '/../../../spec_helper'
+require File.dirname(__FILE__) + '/../../../factories'
 
 describe "/admin/dashboard/show.html" do
   before(:each) do
+    sign_in FactoryGirl.create(:admin)
     allow(view).to receive(:enki_config).and_return(Enki::Config.default)
   end
 

@@ -6,7 +6,7 @@ describe Admin::CommentsController do
   describe 'handling GET to index' do
     before(:each) do
       FactoryGirl.create_list(:comment, 2)
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       get :index
     end
 
@@ -19,7 +19,7 @@ describe Admin::CommentsController do
     before(:each) do
       @comment = Comment.new
       allow(Comment).to receive(:find).and_return(@comment)
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       get :show, :id => 1
     end
 
@@ -38,7 +38,7 @@ describe Admin::CommentsController do
     end
 
     def do_put
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       put :update, :id => 1, :comment => @attributes
     end
 
@@ -69,7 +69,7 @@ describe Admin::CommentsController do
     end
 
     def do_put
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       put :update, :id => 1, :comment => @attributes
     end
 
@@ -91,7 +91,7 @@ describe Admin::CommentsController do
     end
 
     it 'allows whitelisted attributes as expected' do
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       put :update, :id => 1, :comment => {
         'author'       => "Don Alias",
         'author_url'   => "http://example.com",
@@ -114,7 +114,7 @@ describe Admin::CommentsController do
     end
 
     def do_delete
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       delete :destroy, :id => 1
     end
 
@@ -138,7 +138,7 @@ describe Admin::CommentsController do
     end
 
     def do_delete
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       delete :destroy, :id => 1, :format => 'json'
     end
 

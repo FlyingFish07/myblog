@@ -24,10 +24,10 @@ class UserPolicy
   end
 
   def edit_for_omniauth?
-    (not @current_user.provider.empty? ) &&  @current_user == @user
+    (not @current_user.provider.blank? ) &&  @current_user == @user
   end
 
   def update_for_omniauth?
-    (not @current_user.provider.empty? ) &&  @current_user == @user
+    (not @current_user.provider.blank? ) &&  @current_user == @user
   end
 end

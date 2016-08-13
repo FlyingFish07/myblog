@@ -1,6 +1,14 @@
 require File.dirname(__FILE__) + '/../../../spec_helper'
 
+RSpec.configure do |c|
+  c.include PunditMock
+end
+
 describe "/admin/comments/index.html" do
+  before(:each) do 
+    allow(view).to receive_message_chain(:policy,:update?).and_return(true)
+  end
+
   after(:each) do
     expect(rendered).to be_valid_html5_fragment
   end

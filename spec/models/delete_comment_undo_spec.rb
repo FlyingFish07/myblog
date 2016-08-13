@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/../factories'
 
 describe DeleteCommentUndo do
   describe '#process!' do
@@ -40,9 +41,10 @@ describe DeleteCommentUndo do
 
   describe '.create_undo' do
     it "creates a new undo item based on the attributes of the given comment" do
+      user = FactoryGirl.create(:admin)
       comment = Comment.new(:author => 'Don Alias')
-      expect(DeleteCommentUndo).to receive(:create!).with(:data => comment.attributes.to_yaml).and_return(obj = Object.new)
-      expect(DeleteCommentUndo.create_undo(comment)).to eq(obj)
+      expect(DeleteCommentUndo).to receive(:create!).with(:data => comment.attributes.to_yaml, :user => user).and_return(obj = Object.new)
+      expect(DeleteCommentUndo.create_undo(comment, user)).to eq(obj)
     end
   end
 end

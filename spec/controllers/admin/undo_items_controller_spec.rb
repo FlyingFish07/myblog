@@ -1,11 +1,17 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
+require File.dirname(__FILE__) + '/../../factories'
+
+RSpec.configure do |c|
+  c.include PunditMock
+end
 
 describe Admin::UndoItemsController do
   describe 'handling GET to index' do
     before(:each) do
       @undo_items = [mock_model(UndoItem)]
       allow(UndoItem).to receive_message_chain(:order, :limit, :all).and_return(@undo_items)
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
+      mock_policy_scope(@undo_items)
       get :index
     end
 
@@ -23,7 +29,7 @@ describe Admin::UndoItemsController do
 
     def do_post
       request.env["HTTP_REFERER"] = "/bogus"
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       post :undo, :id => 1
     end
 
@@ -41,7 +47,7 @@ describe Admin::UndoItemsController do
 
     def do_post
       request.env["HTTP_REFERER"] = "/bogus"
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       post :undo, :id => 1, :format => 'json'
     end
 
@@ -58,7 +64,7 @@ describe Admin::UndoItemsController do
 
     def do_post
       request.env["HTTP_REFERER"] = "/bogus"
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       post :undo, :id => 1
     end
 
@@ -75,7 +81,7 @@ describe Admin::UndoItemsController do
 
     def do_post
       request.env["HTTP_REFERER"] = "/bogus"
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       post :undo, :id => 1, :format => 'json'
     end
 

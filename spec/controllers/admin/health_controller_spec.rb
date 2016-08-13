@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe Admin::HealthController do
   describe 'handling GET to index' do
     before(:each) do
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       get :index
     end
 
@@ -19,7 +19,7 @@ describe Admin::HealthController do
   describe 'handling POST to generate_exception' do
     describe 'when logged in' do
       it 'raises a RuntimeError' do
-        session[:logged_in] = true
+        sign_in FactoryGirl.create(:admin)
         expect {
           post :generate_exception
         }.to raise_error RuntimeError
@@ -37,7 +37,7 @@ describe Admin::HealthController do
 
   describe 'handling GET to generate_exception' do
     it '405s' do
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       get :generate_exception
       expect(response.status).to eq(405)
       expect(response.headers['Allow']).to eq('POST')

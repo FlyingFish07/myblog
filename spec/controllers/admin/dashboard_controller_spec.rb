@@ -10,7 +10,7 @@ describe Admin::DashboardController do
 
       allow(CommentActivity).to receive(:find_recent).and_return(@comment_activity)
 
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       get :show
     end
 

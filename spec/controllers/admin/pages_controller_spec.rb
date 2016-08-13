@@ -5,7 +5,7 @@ describe Admin::PagesController do
   describe 'handling GET to index' do
     before(:each) do
       FactoryGirl.create_list(:page, 2)
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       get :index
     end
 
@@ -21,12 +21,21 @@ describe Admin::PagesController do
       expect(assigns[:pages].size).to eq(2)
     end
   end
-
+  describe 'handling POST to create with valid attributes' do
+    it 'creates a page' do
+      sign_in FactoryGirl.create(:admin)
+      expect { post :create, :page => {
+        'title' => 'My Post',
+        'slug'  => 'my-post',
+        'body'  => 'This is my post'
+        }}.to change(Page, :count).by(1)
+    end
+  end
   describe 'handling GET to show' do
     before(:each) do
       @page = mock_model(Page)
       allow(Page).to receive(:find).and_return(@page)
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       get :show, :id => 1
     end
 
@@ -47,7 +56,7 @@ describe Admin::PagesController do
     before(:each) do
       @page = mock_model(Page)
       allow(Page).to receive(:new).and_return(@page)
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       get :new
     end
 
@@ -63,7 +72,7 @@ describe Admin::PagesController do
     end
 
     def do_put
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       put :update, :id => 1, :page => {
         'title' => 'My Post',
         'slug'  => 'my-post',
@@ -96,7 +105,7 @@ describe Admin::PagesController do
     end
 
     def do_put
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       put :update, :id => 1, :page => {
         'title' => nil,
         'slug'  => 'my-page',
@@ -114,12 +123,35 @@ describe Admin::PagesController do
       expect(response.status).to eq(422)
     end
   end
+  describe 'handling DELETE to destroy' do
+    before(:each) do
+      @page = Page.new
+      allow(@page).to receive(:destroy_with_undo)
+      allow(Page).to receive(:find).and_return(@page)
+    end
+
+    def do_delete
+      sign_in FactoryGirl.create(:admin)
+      delete :destroy, :id => 1
+    end
+
+    it("redirects to index") do
+      do_delete
+      expect(response).to be_redirect
+      expect(response).to redirect_to(admin_pages_path)
+    end
+
+    it("deletes page") do
+      expect(@page).to receive(:destroy_with_undo)
+      do_delete
+    end
+  end
 end
 
 describe Admin::PagesController, 'with an AJAX request to preview' do
   before(:each) do
     expect(Page).to receive(:build_for_preview).and_return(@page = mock_model(Page))
-    session[:logged_in] = true
+    sign_in FactoryGirl.create(:admin)
     xhr :post, :preview, :page => {
       :title        => 'My Page',
       :body         => 'body'

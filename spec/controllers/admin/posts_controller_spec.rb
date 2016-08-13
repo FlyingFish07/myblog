@@ -5,7 +5,7 @@ describe Admin::PostsController do
   describe 'handling GET to index' do
     before(:each) do
       FactoryGirl.create_list(:post, 2)
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       get :index
     end
 
@@ -28,7 +28,7 @@ describe Admin::PostsController do
     before(:each) do
       @post = mock_model(Post)
       allow(Post).to receive(:find).and_return(@post)
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       get :show, :id => 1
     end
 
@@ -49,7 +49,7 @@ describe Admin::PostsController do
     before(:each) do
       @post = mock_model(Post)
       allow(Post).to receive(:new).and_return(@post)
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       get :new
     end
 
@@ -65,7 +65,7 @@ describe Admin::PostsController do
     end
 
     def do_put
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       put :update, :id => 1, :post => valid_post_attributes
     end
 
@@ -92,7 +92,7 @@ describe Admin::PostsController do
     end
 
     def do_put
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       put :update, :id => 1, :post => valid_post_attributes
     end
 
@@ -114,7 +114,7 @@ describe Admin::PostsController do
     end
 
     it 'allows whitelisted attributes as expected' do
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       put :update, :id => 1, :post => {
         'title'                => "My Updated Post",
         'body'                 => "hello this is my updated post",
@@ -135,14 +135,14 @@ describe Admin::PostsController do
 
   describe 'handling POST to create with valid attributes' do
     it 'creates a post' do
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       expect { post :create, :post => valid_post_attributes }.to change(Post, :count).by(1)
     end
   end
 
   describe 'handling POST to create with expected whitelisted attributes present' do
     it 'allows whitelisted attributes as expected' do
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       put :create, :id => 1, :post => {
         'title'                => "My Awesome New Post",
         'body'                 => "hello this is my awesome new post",
@@ -178,7 +178,7 @@ describe Admin::PostsController do
     end
 
     def do_delete
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       delete :destroy, :id => 1
     end
 
@@ -202,7 +202,7 @@ describe Admin::PostsController do
     end
 
     def do_delete
-      session[:logged_in] = true
+      sign_in FactoryGirl.create(:admin)
       delete :destroy, :id => 1, :format => 'json'
     end
 
@@ -220,7 +220,7 @@ end
 
 describe Admin::PostsController, 'with an AJAX request to preview' do
   before(:each) do
-    session[:logged_in] = true
+    sign_in FactoryGirl.create(:admin)
     xhr :post, :preview, :post => {
       :title                => 'My Post',
       :body                 => 'body',

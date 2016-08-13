@@ -11,3 +11,5 @@ public/uploads
 *.log
 /vendor/bundle
 .byebug_history
+coverage
+tools
