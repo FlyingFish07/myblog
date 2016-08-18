@@ -1,13 +1,11 @@
 Given /I am logged in/ do
-  # post '/admin/session', :bypass_login => '1'
-  visit '/admin/session'
-  click_on "Bypass credentials check"
-end
-
-Then /a RuntimeError is thrown when I press "(.*)"/ do |button|
-  lambda {
-    click_button(button)
-  }.should raise_error RuntimeError
+  FactoryGirl.create(:admin)
+  visit '/admin/sign_in'
+  within("#email-login") do
+    fill_in 'Email', :with => 'admin@example.com'
+    fill_in 'Password', :with => 'password'
+    click_button '确认'
+  end
 end
 
 Then /^the comment exists$/ do
@@ -31,3 +29,8 @@ Given /^a comment does not exist with attributes:$/ do |comment_table|
     Comment.where(hash).should be_nil
   end
 end
+
+Given /^I press icon button with title "(.*)"/ do |title|
+  find(:xpath, "//label[@title='#{title}']").click
+end
+

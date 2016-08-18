@@ -71,6 +71,7 @@ group :test do
   gem 'database_cleaner'
   gem 'cucumber-rails',    :require => false
   gem 'cucumber-websteps', :require => false
+  gem 'selenium-webdriver'
   gem 'factory_girl'
   gem 'rspec'
   gem 'rspec-activemodel-mocks'

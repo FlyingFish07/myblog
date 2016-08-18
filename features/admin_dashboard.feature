@@ -7,4 +7,4 @@ Feature: Dashboard
     Given I am logged in
     And a post with comments exists
     When I go to /admin
-    Then I should see "Latest Comments"
+    Then I should see "最近评论"

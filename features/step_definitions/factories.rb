@@ -9,6 +9,7 @@ FactoryGirl.define do
     title     'A post'
     slug      'a-post'
     body      'This is a post'
+    category_list 'red, green, blue'
 
     published_at { 1.day.ago }
     created_at   { 1.day.ago }
@@ -21,5 +22,19 @@ FactoryGirl.define do
     author_url   'http://enkiblog.com'
     body         'I find this article thought provoking'
     association :post
+  end
+  
+  factory :user do 
+    name 'user'
+    email 'user@example.com'
+    password 'password'
+    role :user
+  end
+
+  factory :admin, class: User do 
+    name 'admin'
+    email 'admin@example.com'
+    password 'password'
+    role :admin
   end
 end

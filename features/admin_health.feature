@@ -6,5 +6,6 @@ Feature: Health Monitor
   Scenario: generating an exception
     Given I am logged in
     When I go to /admin
-    And I follow "Health"
-    Then a RuntimeError is thrown when I press "Throw exception"
+    And I follow "绿灯探测"
+    When I press "Throw exception"
+    Then I should see "RuntimeError"
