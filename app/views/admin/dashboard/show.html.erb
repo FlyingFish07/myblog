@@ -14,10 +14,12 @@
       <ul class="list-group">
         <% @posts.each_with_index do |post, i| -%>
           <li class="<%= i == 0 ? 'first ' : '' %>item list-group-item">
-            <strong><%= link_to(truncate(post.title, :length => 50), 
-                      (current_user.try(:admin?) or current_user.id == post.user_id) ? admin_post_path(post) : post_path(post)) %></strong>
-            <small><%= l post.published_at, format: :short_day %></small>
-            <span class="count badge"><%= link_to(post.approved_comments.size, post_path(post)) %></span>
+            <span class="dashboard-label">
+              <strong><%= link_to(truncate(post.title, :length => 50), 
+                        (current_user.try(:admin?) or current_user.id == post.user_id) ? admin_post_path(post) : post_path(post)) %></strong>
+              <small><%= l post.published_at, format: :short_day %></small>
+            </span>
+            <span class="badge"><%= link_to(post.approved_comments.size, post_path(post)) %></span>
           </li>
         <% end -%>
       </ul>
@@ -27,16 +29,19 @@
       <ul class="list-group">
         <% @comment_activity.each_with_index do |activity, i| -%>
           <li class="<%= i == 0 ? 'first ' : '' %>item list-group-item">
-            <strong><%= link_to_post(activity.post, truncate(activity.post.title, :length => 50)) %></strong>
-            <span class='small'><%= l activity.most_recent_comment.created_at, format: :short_day %></span>
-            <span class='count badge'><%= activity.post.approved_comments.size %></span>
-            <ul class="list-inline">
-              <% activity.comments.each_with_index do |comment, index| -%>
-                <%= content_tag :li, :class => activity.comments.size == index + 1 ? 'last' : nil do -%>
-                  <%= link_to(comment.author, admin_comment_path(comment), {:id => "comment-link-#{comment.id}", :class => 'comment-link'}) -%>
+            <span class="dashboard-label">
+              <strong><%= link_to_post(activity.post, truncate(activity.post.title, :length => 50)) %></strong>
+              <span class='small'><%= l activity.most_recent_comment.created_at, format: :short_day %></span>
+              
+              <ul class="list-inline">
+                <% activity.comments.each_with_index do |comment, index| -%>
+                  <%= content_tag :li, :class => activity.comments.size == index + 1 ? 'last' : nil do -%>
+                    <%= link_to(comment.author, admin_comment_path(comment), {:id => "comment-link-#{comment.id}", :class => 'comment-link'}) -%>
+                  <% end -%>
                 <% end -%>
-              <% end -%>
-            </ul>
+              </ul>
+            </span>
+            <span class='big-badge'><%= activity.post.approved_comments.size %></span>
             <% activity.comments.each do |comment| -%>
               <div class='comment-body' id='comment-body-<%= comment.id %>'>
                 <div class='comment-actions'>

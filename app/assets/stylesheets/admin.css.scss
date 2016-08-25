@@ -143,10 +143,10 @@ table tfoot tr {
 }
 
 //for panel
-.count a{
+.badge a{
   color: #FFFFFF;
 }
-.count a:hover, .count a:focus {
+.badge a:hover, .badge a:focus {
   color: #CCCCCC;
 }
 .item {
@@ -170,14 +170,19 @@ table tfoot tr {
 //   content: "";
 // }
 
-#recent-comments .count {
+#recent-comments .big-badge {
+  @extend .badge;
   font-size: 22pt;
-  line-height: 1;
+  width: 30px;
 }
+.dashboard-label {
+  display:inline-block;
+  max-width: calc(100% - 30px);
+} 
 
 #recent-comments .comment-body {
   position: absolute;
-  width: 33.1em;
+  width: calc(100% - 70px);
   background-color: #ffffff;
   border: solid 1px #cccccc;
   padding: 5px;
