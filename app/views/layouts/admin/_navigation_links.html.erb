@@ -17,6 +17,6 @@
     <li><%= nav_link_to("评论管理",  admin_comments_path,   :accesskey => '4') %></li>
     <li><%= nav_link_to("动作",   admin_undo_items_path, :accesskey => '7') %></li>
     <li><%= nav_link_to("绿灯探测",    admin_health_path,     :accesskey => '8') %></li>
-    <li><%= link_to("转到主页", root_path,       :accesskey => 'v', :title => 'View Site') %></li>
+    <li class="hidden-xs hidden-sm"><%= link_to("转到主页", root_path,       :accesskey => 'v', :title => 'View Site') %></li>
   </ul>
 <% end %>

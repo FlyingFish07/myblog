@@ -1,8 +1,8 @@
 <tr>
-  <td class="text-center"><%= post.published_at.try(:strftime, '%Y.%m.%d') %></td>
+  <td class="text-center hidden-xs"><%= post.published_at.try(:strftime, '%Y.%m.%d') %></td>
   <td class="text-center"><%= link_to (post.title == '' ? '[Untitled]' : truncate(post.title, :length => 30)), admin_post_path(post) %></td>
-  <td><% tmpc = truncate(post.body, :length => 55) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
-  <td class="text-center"><%= post.approved_comments.size %></td>
+  <td class="hidden-xs hidden-sm"><% tmpc = truncate(post.body, :length => 55) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
+  <td class="text-center hidden-xs"><%= post.approved_comments.size %></td>
   <td class="tbactions text-center">
     <div class="iconbtn" data-toggle="tooltip" data-placement="down" title="编辑">
     <%= link_to admin_post_path(post), :alt => 'edit' do %>

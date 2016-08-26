@@ -30,7 +30,7 @@ Enki::Application.routes.draw do
       get 'download', :on => :member    
     end
     resources :pubimages do
-      get 'download', :on => :member  
+      get 'download', :on => :member
     end
 
     get 'health(/:action)' => 'health', :action => 'index', :as => :health
