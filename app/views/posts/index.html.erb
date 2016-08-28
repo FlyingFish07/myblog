@@ -4,9 +4,9 @@
 
 <% content_for :head do -%>
   <% if not @category.nil? -%>
-    <%= auto_discovery_link_tag(:atom, posts_path(:category => @category, :format => 'atom')) %>
+    <%= auto_discovery_link_tag(:atom, formatted_posts_url(:category => @category, :format => 'atom')) %>
   <% else -%>
-    <%= auto_discovery_link_tag(:atom, formatted_posts_path(:format => 'atom')) %>
+    <%= auto_discovery_link_tag(:atom, formatted_posts_url(:format => 'atom')) %>
   <% end -%>
 <% end -%>
 

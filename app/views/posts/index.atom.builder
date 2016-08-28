@@ -1,21 +1,20 @@
-url = if not @category.nil?
-  posts_path(:category => @category, :format => 'atom', :full_url => true)
+url = if !@category.nil?
+  formatted_posts_url(:category => @category, :format => 'atom')
 # 不支持 tag 的订阅，tag中可能会有中文
 # elsif not @tag.nil?
 #   posts_path(:tag => @tag, :format => 'atom', :full_url => true)
 else
-  formatted_posts_path(:format => 'atom', :full_url => true)
+  formatted_posts_url(:format => 'atom')
 end
 
 atom_feed(
   :url         => url,
-  :root_url    => posts_path(:full_url => true),
+  :root_url    => posts_url,
   :schema_date => '2008'
 ) do |feed|
-  feed.title     posts_title(@tag)
+  feed.title     posts_title(@category)
   feed.updated   @posts.empty? ? Time.now.utc : @posts.collect(&:edited_at).max
   feed.generator "Enki", "uri" => "http://enkiblog.com"
-
   feed.author do |xml|
     xml.name  author.name
     xml.email author.email unless author.email.nil?
