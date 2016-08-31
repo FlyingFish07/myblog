@@ -111,13 +111,14 @@ function destroyAndUndoBehaviour(type) {
     $('form.delete-item').submit(onDeleteFormClick);
   };
 }
-
+//alert提示框自动消失功能
 function alertMsgAutoClose(){
   $("#alertMsg").fadeTo(4000, 500).slideUp(500, function(){
     $("#alertMsg").alert('close');
   });
 }
 
+//启动时加载，完成删除功能、登录方式切换
 $(document).ready(function() {
   $(['posts', 'comments', 'pages']).each(function() {
     if ($('#' + this).length > 0) {

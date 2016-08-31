@@ -15,4 +15,22 @@
 //= require bootstrap-sprockets
 //= require common
 //= require live-comment-preview
+//= require headroom
+//= require jQuery.headroom
 //= require_self
+
+$(document).ready(function() {
+  // headroom初始化: http://wicky.nillia.ms/headroom.js/
+  $(".navbar").headroom({
+    "offset": 35,
+    "tolerance": {
+      "up": 5,
+      "down": 0
+    },
+    "classes": {
+      "initial": "animated",
+      "pinned": "slideDown",
+      "unpinned": "slideUp"
+    }
+  });
+});
