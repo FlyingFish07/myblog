@@ -24,7 +24,7 @@ $(document).ready(function() {
   $(".navbar").headroom({
     "offset": 35,
     "tolerance": {
-      "up": 5,
+      "up": 80,
       "down": 0
     },
     "classes": {
