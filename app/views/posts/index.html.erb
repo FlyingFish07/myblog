@@ -18,8 +18,5 @@
 	  <%= render post %>
 	</div>
 	<% end -%>
-    <%= will_paginate @posts, :renderer => MyBootstrapPagination::Rails, :page_links => false%>
-  <% if more_content? -%>
-    <div class="related">Looking for more? Head on over to the <%= link_to 'archives', archives_path %>.</div>
-  <% end -%>
+  <%= will_paginate @posts, :renderer => MyBootstrapPagination::Rails, :page_links => false%>
 <% end -%>
