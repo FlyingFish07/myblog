@@ -28,6 +28,7 @@ class CommentsController < ApplicationController
 
     if @comment.spam?
       redirect_to action: :index
+      return
     end
 
     if !@comment.requires_openid_authentication?
