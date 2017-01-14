@@ -82,5 +82,9 @@ Enki::Application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_options = {from: Enki::Config.default[:exception_mail, :email]}
 
+  # akismet anti spam
+  # see also: https://github.com/joshfrench/rakismet
+  config.rakismet.key = Enki::Config.default[:rakismet, :key]
+  config.rakismet.url = Enki::Config.default[:rakismet, :url]
 
 end

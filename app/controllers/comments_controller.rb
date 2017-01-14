@@ -26,6 +26,10 @@ class CommentsController < ApplicationController
       reject { |key, value| !Comment.protected_attribute?(key) })
     @comment.post = @post
 
+    if @comment.spam?
+      redirect_to action: :index
+    end
+
     if !@comment.requires_openid_authentication?
       @comment.blank_openid_fields
       save_comment_or_show_error

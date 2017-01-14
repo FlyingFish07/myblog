@@ -1,6 +1,9 @@
 class Comment < ActiveRecord::Base
   DEFAULT_LIMIT = 15
 
+  # add rakismet anti spam function
+  include Rakismet::Model
+
   attr_accessor         :openid_error
   attr_accessor         :openid_valid
 

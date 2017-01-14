@@ -31,4 +31,9 @@ Enki::Application.configure do
   config.active_support.deprecation = :stderr
 
   config.eager_load = false
+
+  # rakismet anti spam
+  config.rakismet.test = false # <- default
+  config.rakismet.key = Enki::Config.default[:rakismet, :key]
+  config.rakismet.url = Enki::Config.default[:rakismet, :url]
 end

@@ -32,3 +32,8 @@ exception_mail:
   smtp_server_port: 25
   username: username
   password: xxxxx
+
+# rakismet anti spam
+rakismet:
+  key: 'your wordpress key'
+  url: 'http://yourdomain.com/'

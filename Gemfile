@@ -15,6 +15,7 @@ gem 'font-awesome-sass'
 gem 'sunspot_rails'
 gem 'carrierwave'
 gem 'stringex'
+gem 'rakismet'
 
 # platforms :ruby do
 # #  gem 'pg'

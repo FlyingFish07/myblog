@@ -30,5 +30,10 @@ Enki::Application.configure do
 
   # action_mailer
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # rakismet anti spam
+  config.rakismet.test = false # <- default
+  config.rakismet.key = Enki::Config.default[:rakismet, :key]
+  config.rakismet.url = Enki::Config.default[:rakismet, :url]
 end
 
