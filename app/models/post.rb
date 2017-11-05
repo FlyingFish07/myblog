@@ -91,7 +91,7 @@ class Post < ActiveRecord::Base
 
     def find_by_permalink(year, month, day, slug, options = {})
       begin
-        day = Time.parse([year, month, day].collect(&:to_i).join("-")).midnight
+        day = Time.zone.parse([year, month, day].collect(&:to_i).join("-")).midnight
         result = where(['slug = ?', slug])
 
         if !options.empty? && options[:include].present?
