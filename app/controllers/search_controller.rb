@@ -27,7 +27,7 @@ class SearchController < ApplicationController
         one_hit[:hl_body] = hl_body.html_safe
       end 
       @all_hits << one_hit
-      puts one_hit
+      #puts one_hit
     end
   end
 end
