@@ -88,7 +88,7 @@ end
 
 group :development, :test do
   # gem 'web-console', '3.0.0'
-  gem 'spork', github: 'sporkrb/spork'
+  gem 'spork'
   gem 'rspec-rails'
   gem 'byebug','8.2.2'
   gem 'better_errors'
