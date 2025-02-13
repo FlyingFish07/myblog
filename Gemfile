@@ -29,6 +29,8 @@ gem 'rakismet'
 #   gem 'jruby-openssl'
 # end
 
+#Use passenger as the web server
+gem "passenger"
 # Use unicorn as the web server
 # gem 'unicorn'
 
