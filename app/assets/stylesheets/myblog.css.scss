@@ -158,3 +158,8 @@ body {
     padding-top: 55px;
     margin-top: -55px;
 }
+/* for mobile */
+img{
+  max-width: 100%; /* 限制为父容器宽度 */
+  height: auto;  /* 固定图像长宽比例 */
+}
