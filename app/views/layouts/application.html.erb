@@ -14,6 +14,8 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
  
   <%= open_id_delegation_link_tags(enki_config[:open_id_delegation, :server], enki_config[:open_id_delegation, :delegate]) if enki_config[:open_id_delegation] %>
+  <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+  <script>LA.init({id:"3Mr8JLzFhlnC7g1F",ck:"3Mr8JLzFhlnC7g1F"})</script>
   <%= yield(:head) %>
 </head>
 <body>
