@@ -15,6 +15,7 @@
 //= require bootstrap-sprockets
 //= require common
 //= require live-comment-preview
+//= require js-sdk-pro.min
 //= require headroom
 //= require jQuery.headroom
 //= require_self
